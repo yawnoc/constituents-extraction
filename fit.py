@@ -15,6 +15,7 @@ import numpy as np
 
 
 DATA_DIRECTORY = 'data'
+OUTPUT_DIRECTORY = 'output'
 
 
 def load_data():
@@ -38,6 +39,7 @@ def make_plot(file_name, data):
     xlabel='Frame number',
     ylabel='Average intensity',
   )
+  plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'{file_name}.pdf'))
   plt.show()
 
 
