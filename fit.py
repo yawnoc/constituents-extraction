@@ -9,6 +9,8 @@ for {frame number} vs {average intensity} data.
 
 
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -24,9 +26,25 @@ def load_data():
   return data_from_file_name
 
 
+def make_plot(file_name, data):
+  
+  frame_data = data[:, 0]
+  intensity_data = data[:, 1]
+  
+  figure, axes = plt.subplots()
+  axes.plot(frame_data, intensity_data)
+  axes.set(
+    title=file_name,
+    xlabel='Frame number',
+    ylabel='Average intensity',
+  )
+  plt.show()
+
+
 def main():
   data_from_file_name = load_data()
-  print(data_from_file_name)
+  for file_name, data in data_from_file_name.items():
+    make_plot(file_name, data)
 
 
 if __name__ == '__main__':
