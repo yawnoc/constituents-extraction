@@ -37,24 +37,25 @@ def background_model(x, m, b):
   return m * x + b
 
 
-def peak_model(x, k, mu, sigma):
+def peak_model(x, a, k, mu, sigma):
   """
   Exponentially modified Gaussian for each peak of normalised intensity.
   
-  Given by
+  Here, a is an amplitude parameter with have tacked on.
+  The exponentially modified Gaussian distribution has probability density
     f(x, K) = 1/(2K) exp(1/(2K^2) - x/K) erfc(-(x - 1/K) / sqrt(2)),
-  transforms to the Wikipedia version according to K = 1/(sigma lambda).
+  and transforms to the Wikipedia version according to K = 1/(sigma lambda).
   See <https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.exponnorm.html>
   and <https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution>.
   """
-  return st.exponnorm.pdf(x, k, mu, sigma)
+  return a * st.exponnorm.pdf(x, k, mu, sigma)
 
 
-def full_model(x, m, b, k1, mu1, sigma1, k2, mu2, sigma2):
+def full_model(x, m, b, a1, k1, mu1, sigma1, a2, k2, mu2, sigma2):
   return (
     background_model(x, m, b)
-    + peak_model(x, k1, mu1, sigma1)
-    + peak_model(x, k2, mu2, sigma2)
+    + peak_model(x, a1, k1, mu1, sigma1)
+    + peak_model(x, a2, k2, mu2, sigma2)
   )
 
 
@@ -88,13 +89,14 @@ def fit(x_data, y_data):
   
   m_bounds = [0, 1]
   b_bounds = [0, 1]
+  a_bounds = [0, 1]
   k_bounds = [0.1, 4]
   mu_bounds = [0.1, 4]
   sigma_bounds = [0.1, 4]
   parameter_bounds = [
     m_bounds, b_bounds,
-    k_bounds, mu_bounds, sigma_bounds,
-    k_bounds, mu_bounds, sigma_bounds,
+    a_bounds, k_bounds, mu_bounds, sigma_bounds,
+    a_bounds, k_bounds, mu_bounds, sigma_bounds,
   ]
   
   def sum_of_squares_error(parameters):
