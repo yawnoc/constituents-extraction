@@ -87,8 +87,8 @@ def de_normalise(intensity_min, intensity_max, y_data):
 
 def fit(x_data, y_data):
   
-  m_bounds = [0, 1]
-  b_bounds = [0, 1]
+  m_bounds = [0, 0.2]
+  b_bounds = [0, 0.05]
   a_bounds = [0, 1]
   k_bounds = [0.1, 4]
   mu_bounds = [0.1, 4]
