@@ -12,6 +12,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.stats as st
 
 
 DATA_DIRECTORY = 'data'
@@ -25,6 +26,27 @@ def load_data():
       full_file_name = os.path.join(path, file_name)
       data_from_file_name[file_name] = np.loadtxt(full_file_name, skiprows=1)
   return data_from_file_name
+
+
+def background_model(x, m, b):
+  """
+  Straight line for the background intensity.
+  """
+  
+  return m * x + b
+
+
+def peak_model(x, k, mu, sigma):
+  """
+  Exponentially modified Gaussian for each peak of the intensity.
+  
+  Given by
+    f(x, K) = 1/(2K) exp(1/(2K^2) - x/K) erfc(-(x - 1/K) / sqrt(2)),
+  transforms to the Wikipedia version according to K = 1/(sigma lambda).
+  See <https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.exponnorm.html>
+  and <https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution>.
+  """
+  return st.exponnorm.pdf(x, k, mu, sigma)
 
 
 def make_plot(file_name, data):
