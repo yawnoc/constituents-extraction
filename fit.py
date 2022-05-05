@@ -67,6 +67,21 @@ def normalise(frame_data, intensity_data):
   return frame_min, frame_max, intensity_min, intensity_max, x_data, y_data
 
 
+def de_normalise(
+  frame_min, frame_max,
+  intensity_min, intensity_max,
+  x_data, y_data,
+):
+  """
+  De-normalise frame and intensity data.
+  """
+  
+  frame_data = frame_min + (frame_max - frame_min) * x_data
+  intensity_data = intensity_min + (intensity_max - intensity_min) * y_data
+  
+  return frame_data, intensity_data
+
+
 def make_plot(file_name, data):
   
   frame_data = data[:, 0]
