@@ -150,16 +150,32 @@ def make_plot(file_name, data):
     de_normalise(intensity_min, intensity_max, y_data_fitted_peak2)
   
   figure, axes = plt.subplots()
-  axes.plot(frame_data, intensity_data)
-  axes.plot(frame_data, intensity_data_fitted)
-  axes.plot(frame_data, intensity_data_fitted_background, linestyle='dashed')
-  axes.plot(frame_data, intensity_data_fitted_peak1, linestyle='dashed')
-  axes.plot(frame_data, intensity_data_fitted_peak2, linestyle='dashed')
+  axes.plot(frame_data, intensity_data, label='data')
+  axes.plot(frame_data, intensity_data_fitted, label='fit full')
+  axes.plot(
+    frame_data,
+    intensity_data_fitted_background,
+    label='fit background',
+    linestyle='dashed',
+  )
+  axes.plot(
+    frame_data,
+    intensity_data_fitted_peak1,
+    label='fit peak1',
+    linestyle='dashed',
+  )
+  axes.plot(
+    frame_data,
+    intensity_data_fitted_peak2,
+    label='fit peak2',
+    linestyle='dashed',
+  )
   axes.set(
     title=file_name,
     xlabel='Frame number',
     ylabel='Average intensity',
   )
+  axes.legend()
   plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'{file_name}.pdf'))
 
 
