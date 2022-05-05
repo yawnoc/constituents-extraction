@@ -115,14 +115,14 @@ def fit(x_data, y_data):
     y_model = full_model(x_data, *parameters)
     return np.sum((y_data - y_model) ** 2)
   
-  initial_parameters = \
+  initial_guess_parameters = \
           opt.differential_evolution(
             sum_of_squares_error,
             parameter_bounds,
             seed=0,
           ).x
   fitted_parameters, _ = \
-          opt.curve_fit(full_model, x_data, y_data, initial_parameters)
+          opt.curve_fit(full_model, x_data, y_data, initial_guess_parameters)
   
   return fitted_parameters
 
