@@ -136,7 +136,6 @@ def make_plot(file_name, data):
     ylabel='Average intensity',
   )
   plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'{file_name}.pdf'))
-  plt.show()
 
 
 def main():
