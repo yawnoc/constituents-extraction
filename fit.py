@@ -50,8 +50,12 @@ def peak_model(x, k, mu, sigma):
   return st.exponnorm.pdf(x, k, mu, sigma)
 
 
-def full_model(x, m, b):
-  return background_model(x, m, b)
+def full_model(x, m, b, k1, mu1, sigma1, k2, mu2, sigma2):
+  return (
+    background_model(x, m, b)
+    + peak_model(x, k1, mu1, sigma1)
+    + peak_model(x, k2, mu2, sigma2)
+  )
 
 
 def normalise(frame_data, intensity_data):
@@ -84,9 +88,13 @@ def fit(x_data, y_data):
   
   m_bounds = [0, 1]
   b_bounds = [0, 1]
+  k_bounds = [0.1, 4]
+  mu_bounds = [0.1, 4]
+  sigma_bounds = [0.1, 4]
   parameter_bounds = [
-    m_bounds,
-    b_bounds,
+    m_bounds, b_bounds,
+    k_bounds, mu_bounds, sigma_bounds,
+    k_bounds, mu_bounds, sigma_bounds,
   ]
   
   def sum_of_squares_error(parameters):
