@@ -59,18 +59,16 @@ def full_model(x, m, b, a1, k1, mu1, sigma1, a2, k2, mu2, sigma2):
   )
 
 
+def background_contribution(x, m, b, a1, k1, mu1, sigma1, a2, k2, mu2, sigma2):
+  return background_model(x, m, b)
+
+
 def peak1_contribution(x, m, b, a1, k1, mu1, sigma1, a2, k2, mu2, sigma2):
-  return (
-    background_model(x, m, b)
-    + peak_model(x, a1, k1, mu1, sigma1)
-  )
+  return peak_model(x, a1, k1, mu1, sigma1)
 
 
 def peak2_contribution(x, m, b, a1, k1, mu1, sigma1, a2, k2, mu2, sigma2):
-  return (
-    background_model(x, m, b)
-    + peak_model(x, a2, k2, mu2, sigma2)
-  )
+  return peak_model(x, a2, k2, mu2, sigma2)
 
 
 def normalise(frame_data, intensity_data):
@@ -138,10 +136,14 @@ def make_plot(file_name, data):
           normalise(frame_data, intensity_data)
   fitted_parameters = fit(x_data, y_data)
   y_data_fitted = full_model(x_data, *fitted_parameters)
+  y_data_fitted_background = \
+          background_contribution(x_data, *fitted_parameters)
   y_data_fitted_peak1 = peak1_contribution(x_data, *fitted_parameters)
   y_data_fitted_peak2 = peak2_contribution(x_data, *fitted_parameters)
   intensity_data_fitted = \
           de_normalise(intensity_min, intensity_max, y_data_fitted)
+  intensity_data_fitted_background = \
+          de_normalise(intensity_min, intensity_max, y_data_fitted_background)
   intensity_data_fitted_peak1 = \
           de_normalise(intensity_min, intensity_max, y_data_fitted_peak1)
   intensity_data_fitted_peak2 = \
@@ -150,6 +152,7 @@ def make_plot(file_name, data):
   figure, axes = plt.subplots()
   axes.plot(frame_data, intensity_data)
   axes.plot(frame_data, intensity_data_fitted)
+  axes.plot(frame_data, intensity_data_fitted_background, linestyle='dashed')
   axes.plot(frame_data, intensity_data_fitted_peak1, linestyle='dashed')
   axes.plot(frame_data, intensity_data_fitted_peak2, linestyle='dashed')
   axes.set(
