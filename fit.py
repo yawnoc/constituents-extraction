@@ -12,6 +12,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.optimize as opt
 import scipy.stats as st
 
 
@@ -49,6 +50,10 @@ def peak_model(x, k, mu, sigma):
   return st.exponnorm.pdf(x, k, mu, sigma)
 
 
+def full_model(x, m, b):
+  return background_model(x, m, b)
+
+
 def normalise(frame_data, intensity_data):
   """
   Normalise frame and intensity data to between 0 and 1.
@@ -67,19 +72,37 @@ def normalise(frame_data, intensity_data):
   return frame_min, frame_max, intensity_min, intensity_max, x_data, y_data
 
 
-def de_normalise(
-  frame_min, frame_max,
-  intensity_min, intensity_max,
-  x_data, y_data,
-):
+def de_normalise(intensity_min, intensity_max, y_data):
   """
   De-normalise frame and intensity data.
   """
-  
-  frame_data = frame_min + (frame_max - frame_min) * x_data
   intensity_data = intensity_min + (intensity_max - intensity_min) * y_data
+  return intensity_data
+
+
+def fit(x_data, y_data):
   
-  return frame_data, intensity_data
+  m_bounds = [0, 1]
+  b_bounds = [0, 1]
+  parameter_bounds = [
+    m_bounds,
+    b_bounds,
+  ]
+  
+  def sum_of_squares_error(parameters):
+    y_model = full_model(x_data, *parameters)
+    return np.sum((y_data - y_model) ** 2)
+  
+  initial_parameters = \
+          opt.differential_evolution(
+            sum_of_squares_error,
+            parameter_bounds,
+            seed=0,
+          ).x
+  fitted_parameters, _ = \
+          opt.curve_fit(full_model, x_data, y_data, initial_parameters)
+  
+  return fitted_parameters
 
 
 def make_plot(file_name, data):
@@ -89,9 +112,14 @@ def make_plot(file_name, data):
   
   frame_min, frame_max, intensity_min, intensity_max, x_data, y_data = \
           normalise(frame_data, intensity_data)
+  fitted_parameters = fit(x_data, y_data)
+  y_data_fitted = full_model(x_data, *fitted_parameters)
+  intensity_data_fitted = \
+          de_normalise(intensity_min, intensity_max, y_data_fitted)
   
   figure, axes = plt.subplots()
   axes.plot(frame_data, intensity_data)
+  axes.plot(frame_data, intensity_data_fitted)
   axes.set(
     title=file_name,
     xlabel='Frame number',
