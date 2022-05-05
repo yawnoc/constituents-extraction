@@ -86,7 +86,7 @@ def normalise(frame_data, intensity_data):
   x_data = (frame_data - frame_min) / (frame_max - frame_min)
   y_data = (intensity_data - intensity_min) / (intensity_max - intensity_min)
   
-  return frame_min, frame_max, intensity_min, intensity_max, x_data, y_data
+  return intensity_min, intensity_max, x_data, y_data
 
 
 def de_normalise(intensity_min, intensity_max, y_data):
@@ -132,7 +132,7 @@ def make_plot(file_name, data):
   frame_data = data[:, 0]
   intensity_data = data[:, 1]
   
-  frame_min, frame_max, intensity_min, intensity_max, x_data, y_data = \
+  intensity_min, intensity_max, x_data, y_data = \
           normalise(frame_data, intensity_data)
   fitted_parameters = fit(x_data, y_data)
   y_data_fitted = full_model(x_data, *fitted_parameters)
