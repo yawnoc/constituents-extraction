@@ -83,13 +83,18 @@ def peak_function(x, h, mu, sigma, tau):
 def heuristic_background_parameter_guesses(x_data, y_data):
   """
   Heuristically obtain guesses for the background function parameters.
+  
+  1. Determines the centre of mass for a cluster at the start of the data
+     and a cluster at the end of the data.
+  2. Fits a straight line between these two points.
+  Dumb, but works.
   """
   
-  window_size = 10
-  x1 = np.mean(x_data[:window_size])
-  y1 = np.mean(y_data[:window_size])
-  x2 = np.mean(x_data[-window_size:])
-  y2 = np.mean(y_data[-window_size:])
+  cluster_size = 10
+  x1 = np.mean(x_data[:cluster_size])
+  y1 = np.mean(y_data[:cluster_size])
+  x2 = np.mean(x_data[-cluster_size:])
+  y2 = np.mean(y_data[-cluster_size:])
   
   m_guess = (y2 - y1) / (x2 - x1)
   b_guess = y1 - m_guess * x1
