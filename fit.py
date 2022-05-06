@@ -117,18 +117,18 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
   
   y_data_foreground = y_data - background_function(x_data, m_guess, b_guess)
   
-  foot_threshold_y = 0.05
+  foot_y_threshold = 0.05
   x_foot1, y_foot1_foreground = \
           next(
             (x, y)
               for x, y in zip(x_data, y_data_foreground)
-              if y > foot_threshold_y
+              if y > foot_y_threshold
           )
   x_foot2, y_foot2_foreground = \
           next(
             (x, y)
               for x, y in zip(reversed(x_data), reversed(y_data_foreground))
-              if y > foot_threshold_y
+              if y > foot_y_threshold
           )
   
   y_foot1 = y_foot1_foreground + background_function(x_foot1, m_guess, b_guess)
