@@ -85,7 +85,7 @@ def heuristic_background_parameter_guesses(x_data, y_data):
   Heuristically obtain guesses for the background function parameters.
   """
   
-  window_size = 4
+  window_size = 10
   x1 = np.mean(x_data[:window_size])
   y1 = np.mean(y_data[:window_size])
   x2 = np.mean(x_data[-window_size:])
