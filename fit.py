@@ -112,8 +112,8 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
   """
   Heuristically find peak and valley locations.
   
-  1-peak case: find (foot1, peak, foot2).
-  2-peak case: find (foot1, peak1, valley, peak2, foot2).
+  - 1 peak locations: (foot1, peak, foot2).
+  - 2 peak locations: (foot1, peak1, valley, peak2, foot2).
   
   1. Finds the two feet.
   2. Climbs upward from the two feet,
@@ -172,7 +172,7 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
       x_climb.pop()
       y_climb_foreground.pop()
   
-  try:
+  try: # 2 peaks
     y_valley = \
             (
               y_valley_foreground
@@ -203,7 +203,7 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
       x_peak2, y_peak2,
       x_foot2, y_foot2,
     )
-  except TypeError:
+  except TypeError: # 1 peak
     x_peak, y_peak = max(zip(x_data, y_data), key=extract_y_coordinate)
     return x_foot1, y_foot1, x_peak, y_peak, x_foot2, y_foot2
 
@@ -221,7 +221,7 @@ def main():
     
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
     
-    try:
+    try: # 2 peaks
       (
         x_foot1, y_foot1,
         x_peak1, y_peak1,
@@ -231,7 +231,7 @@ def main():
       ) = \
               heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
       x_peak = y_peak = None
-    except ValueError:
+    except ValueError: # 1 peak
       x_foot1, y_foot1, x_peak, y_peak, x_foot2, y_foot2 = \
               heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
       x_peak1 = y_peak1 = None
