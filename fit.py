@@ -119,8 +119,10 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
   2. Climbs upward from the two feet,
      checking if the secant line hits a valley.
   
-  WARNING: assumes the data is such that there is either 1 peak or 2 peaks.
-  No sanity checking is implemented.
+  WARNING:
+  - Not robust; got lucky with `foot_y_threshold` and `distinct_x_threshold`.
+  - No sanity checking is implemented;
+    assumes the data is such that there be exactly 1 or 2 peaks.
   """
   
   y_data_foreground = y_data - background_function(x_data, m_guess, b_guess)
