@@ -104,6 +104,10 @@ def heuristic_background_parameter_guesses(x_data, y_data):
   return m_guess, b_guess
 
 
+def get_y_coordinate(xy):
+  return xy[1]
+
+
 def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
   """
   Heuristically find peak and valley locations.
@@ -160,7 +164,7 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
             ]
     try:
       x_valley, y_valley_foreground = \
-              min(valley_candidates, key=lambda pair: pair[1])
+              min(valley_candidates, key=get_y_coordinate)
       break
     except ValueError:
       x_climb.popleft()
