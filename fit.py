@@ -251,10 +251,10 @@ def main():
       peak_valley_x_locations = [x_foot1, x_peak, x_foot2]
       peak_valley_y_locations = [y_foot1, y_peak, y_foot2]
       
-      h_guess = y_peak - b_guess
+      h_guess = 3 * (y_peak - b_guess)
       mu_guess = x_peak
-      sigma_guess = (x_peak - x_foot1) / 2
-      tau_guess = (x_foot2 - x_peak) / 4
+      sigma_guess = (x_peak - x_foot1) / 4
+      tau_guess = (x_foot2 - x_peak) / 3
       y_peak_guess = \
               peak_function(x_data, h_guess, mu_guess, sigma_guess, tau_guess)
       y_peak_guess_with_background = \
