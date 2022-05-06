@@ -241,6 +241,8 @@ def main():
               [x_foot1, x_peak1, x_valley, x_peak2, x_foot2]
       peak_valley_y_locations = \
               [y_foot1, y_peak1, y_valley, y_peak2, y_foot2]
+      
+      y_peak_guess_with_background = None
     
     except ValueError: # 1 peak
       
@@ -249,6 +251,15 @@ def main():
       peak_valley_x_locations = [x_foot1, x_peak, x_foot2]
       peak_valley_y_locations = [y_foot1, y_peak, y_foot2]
       
+      h_guess = y_peak - b_guess
+      mu_guess = x_peak
+      sigma_guess = (x_peak - x_foot1) / 2
+      tau_guess = (x_foot2 - x_peak) / 4
+      y_peak_guess = \
+              peak_function(x_data, h_guess, mu_guess, sigma_guess, tau_guess)
+      y_peak_guess_with_background = \
+              y_peak_guess + y_background_guess
+    
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
     axes.plot(
@@ -258,6 +269,8 @@ def main():
       linestyle='dotted',
     )
     axes.plot(peak_valley_x_locations, peak_valley_y_locations, 'rx')
+    if y_peak_guess_with_background is not None:
+      axes.plot(x_data, y_peak_guess_with_background, label='peak guess')
     axes.set(
       title=file_name,
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
