@@ -109,10 +109,15 @@ def main():
     intensity_min, intensity_max, y_data = normalise(intensity_data)
     
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
-    print(m_guess, b_guess)
     
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
+    axes.plot(
+      x_data,
+      background_function(x_data, m_guess, b_guess),
+      label='background guess',
+      linestyle='dotted',
+    )
     axes.set(
       title=file_name,
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
