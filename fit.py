@@ -175,6 +175,7 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
       y_climb_foreground.pop()
   
   try: # 2 peaks
+    
     y_valley = \
             (
               y_valley_foreground
@@ -198,6 +199,7 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
               ],
               key=extract_y_coordinate,
             )
+    
     return (
       x_foot1, y_foot1,
       x_peak1, y_peak1,
@@ -205,6 +207,7 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
       x_peak2, y_peak2,
       x_foot2, y_foot2,
     )
+  
   except TypeError: # 1 peak
     x_peak, y_peak = max(zip(x_data, y_data), key=extract_y_coordinate)
     return x_foot1, y_foot1, x_peak, y_peak, x_foot2, y_foot2
@@ -224,6 +227,7 @@ def main():
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
     
     try: # 2 peaks
+      
       (
         x_foot1, y_foot1,
         x_peak1, y_peak1,
@@ -232,14 +236,18 @@ def main():
         x_foot2, y_foot2,
       ) = \
               heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
-      x_peak = y_peak = None
+      peak_valley_x_locations = \
+              [x_foot1, x_peak1, x_valley, x_peak2, x_foot2]
+      peak_valley_y_locations = \
+              [y_foot1, y_peak1, y_valley, y_peak2, y_foot2]
+    
     except ValueError: # 1 peak
+      
       x_foot1, y_foot1, x_peak, y_peak, x_foot2, y_foot2 = \
               heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
-      x_peak1 = y_peak1 = None
-      x_valley = y_valley = None
-      x_peak2 = y_peak2 = None
-    
+      peak_valley_x_locations = [x_foot1, x_peak, x_foot2]
+      peak_valley_y_locations = [y_foot1, y_peak, y_foot2]
+      
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
     axes.plot(
@@ -248,11 +256,7 @@ def main():
       label='background guess',
       linestyle='dotted',
     )
-    axes.plot(
-      [x_foot1, x_peak1, x_peak, x_valley, x_peak2, x_foot2],
-      [y_foot1, y_peak1, y_peak, y_valley, y_peak2, y_foot2],
-      'rx',
-    )
+    axes.plot(peak_valley_x_locations, peak_valley_y_locations, 'rx')
     axes.set(
       title=file_name,
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
