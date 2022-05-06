@@ -8,6 +8,7 @@ from frame vs intensity data in `data/`.
 """
 
 
+import collections
 import os
 
 import matplotlib.pyplot as plt
@@ -113,24 +114,27 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
   1. Finds the two feet.
   2. Climbs upward from the two feet,
      checking if the secant line hits a valley.
+  
+  WARNING: assumes the data is such that there is either 1 peak or 2 peaks.
+  No sanity checking is implemented.
   """
   
   y_data_foreground = y_data - background_function(x_data, m_guess, b_guess)
   
   foot_y_threshold = 0.05
-  x_foot1, y_foot1_foreground = \
-          next(
-            (x, y)
-              for x, y in zip(x_data, y_data_foreground)
-              if y > foot_y_threshold
-          )
-  x_foot2, y_foot2_foreground = \
-          next(
-            (x, y)
-              for x, y in zip(reversed(x_data), reversed(y_data_foreground))
-              if y > foot_y_threshold
-          )
-  
+  x_climb = collections.deque(x_data)
+  y_climb_foreground = collections.deque(y_data_foreground)
+  while y_climb_foreground[0] < foot_y_threshold:
+    x_climb.popleft()
+    y_climb_foreground.popleft()
+    x_foot1 = x_climb[0]
+    y_foot1_foreground = y_climb_foreground[0]
+  while y_climb_foreground[-1] < foot_y_threshold:
+    x_climb.pop()
+    y_climb_foreground.pop()
+    x_foot2 = x_climb[-1]
+    y_foot2_foreground = y_climb_foreground[-1]
+
   y_foot1 = y_foot1_foreground + background_function(x_foot1, m_guess, b_guess)
   y_foot2 = y_foot2_foreground + background_function(x_foot2, m_guess, b_guess)
   
