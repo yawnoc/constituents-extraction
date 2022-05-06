@@ -62,7 +62,7 @@ def main():
     axes.plot(x_data, y_data, label='data')
     axes.set(
       title=file_name,
-      xlabel=f'Normalised frame number [{frame_min}, {frame_max}]',
+      xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
       ylabel=f'Normalised intensity [{intensity_min:.3}, {intensity_max:.3}]',
     )
     axes.legend()
