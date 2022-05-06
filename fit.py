@@ -163,7 +163,7 @@ def main():
     axes.plot(
       [x_foot1, x_foot2],
       [y_foot1, y_foot2],
-      'x',
+      'rx',
     )
     axes.set(
       title=file_name,
