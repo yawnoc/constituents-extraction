@@ -124,7 +124,7 @@ def main():
       ylabel=f'Normalised intensity [{intensity_min:.3}, {intensity_max:.3}]',
     )
     axes.legend()
-    plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'{file_name}.pdf'))
+    plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'guesses-{file_name}.pdf'))
 
 
 if __name__ == '__main__':
