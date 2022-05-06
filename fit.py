@@ -82,11 +82,12 @@ def peak_function(x, h, mu, sigma, tau):
 
 def heuristic_background_parameter_guesses(x_data, y_data):
   """
-  Heuristically obtain guesses for the background function parameters.
+  Heuristically make guesses for the background function parameters.
   
   1. Determines the centre of mass for a cluster at the start of the data
      and a cluster at the end of the data.
   2. Fits a straight line between these two points.
+  
   Dumb, but works.
   """
   
@@ -102,6 +103,40 @@ def heuristic_background_parameter_guesses(x_data, y_data):
   return m_guess, b_guess
 
 
+def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
+  """
+  Heuristically find peak and valley locations.
+  
+  1-peak case: find (foot1, peak, foot2).
+  2-peak case: find (foot1, peak1, valley, peak2, foot2).
+  
+  1. Finds the two feet.
+  2. Climbs upward from the two feet with height in tandem,
+     checking if the common height hits a valley.
+  """
+  
+  y_data_foreground = y_data - background_function(x_data, m_guess, b_guess)
+  
+  foot_threshold_y = 0.05
+  x_foot1, y_foot1_foreground = \
+          next(
+            (x, y)
+              for x, y in zip(x_data, y_data_foreground)
+              if y > foot_threshold_y
+          )
+  x_foot2, y_foot2_foreground = \
+          next(
+            (x, y)
+              for x, y in zip(reversed(x_data), reversed(y_data_foreground))
+              if y > foot_threshold_y
+          )
+  
+  y_foot1 = y_foot1_foreground + background_function(x_foot1, m_guess, b_guess)
+  y_foot2 = y_foot2_foreground + background_function(x_foot2, m_guess, b_guess)
+  
+  return x_foot1, y_foot1, x_foot2, y_foot2
+
+
 def main():
   
   data_points_from_file_name = load_data_points()
@@ -114,6 +149,8 @@ def main():
     intensity_min, intensity_max, y_data = normalise(intensity_data)
     
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
+    x_foot1, y_foot1, x_foot2, y_foot2 = \
+            heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
     
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
@@ -122,6 +159,11 @@ def main():
       background_function(x_data, m_guess, b_guess),
       label='background guess',
       linestyle='dotted',
+    )
+    axes.plot(
+      [x_foot1, x_foot2],
+      [y_foot1, y_foot2],
+      'x',
     )
     axes.set(
       title=file_name,
