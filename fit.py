@@ -10,11 +10,13 @@ from frame vs intensity data in `data/`.
 
 import os
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 
 DATA_DIRECTORY = 'data'
 DATA_COMMENT_LINE_COUNT = 1
+OUTPUT_DIRECTORY = 'output'
 
 
 def load_data_points():
@@ -55,6 +57,16 @@ def main():
     
     frame_min, frame_max, x_data = normalise(frame_data)
     intensity_min, intensity_max, y_data = normalise(intensity_data)
+    
+    figure, axes = plt.subplots()
+    axes.plot(x_data, y_data, label='data')
+    axes.set(
+      title=file_name,
+      xlabel=f'Normalised frame number [{frame_min}, {frame_max}]',
+      ylabel=f'Normalised intensity [{intensity_min:.3}, {intensity_max:.3}]',
+    )
+    axes.legend()
+    plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'{file_name}.pdf'))
 
 
 if __name__ == '__main__':
