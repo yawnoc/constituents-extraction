@@ -134,7 +134,6 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
     y_climb_foreground.pop()
     x_foot2 = x_climb[-1]
     y_foot2_foreground = y_climb_foreground[-1]
-
   y_foot1 = y_foot1_foreground + background_function(x_foot1, m_guess, b_guess)
   y_foot2 = y_foot2_foreground + background_function(x_foot2, m_guess, b_guess)
   
