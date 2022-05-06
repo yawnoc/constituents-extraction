@@ -104,7 +104,7 @@ def heuristic_background_parameter_guesses(x_data, y_data):
   return m_guess, b_guess
 
 
-def get_y_coordinate(xy):
+def extract_y_coordinate(xy):
   return xy[1]
 
 
@@ -164,7 +164,7 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
             ]
     try:
       x_valley, y_valley_foreground = \
-              min(valley_candidates, key=get_y_coordinate)
+              min(valley_candidates, key=extract_y_coordinate)
       break
     except ValueError:
       x_climb.popleft()
@@ -178,10 +178,34 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
               y_valley_foreground
               + background_function(x_valley, m_guess, b_guess)
             )
+    x_peak1, y_peak1 = \
+            max(
+              [
+                (x, y)
+                  for x, y in zip(x_data, y_data)
+                  if x_foot1 < x < x_valley
+              ],
+              key=extract_y_coordinate,
+            )
+    x_peak2, y_peak2 = \
+            max(
+              [
+                (x, y)
+                  for x, y in zip(x_data, y_data)
+                  if x_valley < x < x_foot2
+              ],
+              key=extract_y_coordinate,
+            )
+    return (
+      x_foot1, y_foot1,
+      x_peak1, y_peak1,
+      x_valley, y_valley,
+      x_peak2, y_peak2,
+      x_foot2, y_foot2,
+    )
   except TypeError:
-    y_valley = None
-  
-  return x_foot1, y_foot1, x_valley, y_valley, x_foot2, y_foot2
+    x_peak, y_peak = max(zip(x_data, y_data), key=extract_y_coordinate)
+    return x_foot1, y_foot1, x_peak, y_peak, x_foot2, y_foot2
 
 
 def main():
@@ -196,8 +220,23 @@ def main():
     intensity_min, intensity_max, y_data = normalise(intensity_data)
     
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
-    x_foot1, y_foot1, x_valley, y_valley, x_foot2, y_foot2 = \
-            heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
+    
+    try:
+      (
+        x_foot1, y_foot1,
+        x_peak1, y_peak1,
+        x_valley, y_valley,
+        x_peak2, y_peak2,
+        x_foot2, y_foot2,
+      ) = \
+              heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
+      x_peak = y_peak = None
+    except ValueError:
+      x_foot1, y_foot1, x_peak, y_peak, x_foot2, y_foot2 = \
+              heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
+      x_peak1 = y_peak1 = None
+      x_valley = y_valley = None
+      x_peak2 = y_peak2 = None
     
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
@@ -208,8 +247,8 @@ def main():
       linestyle='dotted',
     )
     axes.plot(
-      [x_foot1, x_foot2, x_valley],
-      [y_foot1, y_foot2, y_valley],
+      [x_foot1, x_peak1, x_peak, x_valley, x_peak2, x_foot2],
+      [y_foot1, y_peak1, y_peak, y_valley, y_peak2, y_foot2],
       'rx',
     )
     axes.set(
