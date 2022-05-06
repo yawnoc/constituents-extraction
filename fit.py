@@ -138,7 +138,45 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
   y_foot1 = y_foot1_foreground + background_function(x_foot1, m_guess, b_guess)
   y_foot2 = y_foot2_foreground + background_function(x_foot2, m_guess, b_guess)
   
-  return x_foot1, y_foot1, x_foot2, y_foot2
+  distinct_x_threshold = 0.08
+  x_valley = y_valley_foreground = None
+  while len(x_climb) > 2:
+    x1 = x_climb[0]
+    y1_foreground = y_climb_foreground[0]
+    x2 = x_climb[-1]
+    y2_foreground = y_climb_foreground[-1]
+    valley_candidates = \
+            [
+              (x, y_foreground)
+                for x, y_foreground in zip(x_climb, y_climb_foreground)
+                if x1 + distinct_x_threshold < x < x2 - distinct_x_threshold
+                if (
+                  y1_foreground
+                    +
+                  (y2_foreground - y1_foreground)/(x2 - x1) * (x - x1)
+                          >
+                  y_foreground
+                )
+            ]
+    try:
+      x_valley, y_valley_foreground = \
+              min(valley_candidates, key=lambda pair: pair[1])
+      break
+    except ValueError:
+      x_climb.popleft()
+      y_climb_foreground.popleft()
+      x_climb.pop()
+      y_climb_foreground.pop()
+  
+  try:
+    y_valley = \
+            (
+              y_valley_foreground
+              + background_function(x_valley, m_guess, b_guess)
+            )
+  except TypeError:
+    y_valley = None
+  return x_foot1, y_foot1, x_valley, y_valley, x_foot2, y_foot2
 
 
 def main():
@@ -153,7 +191,7 @@ def main():
     intensity_min, intensity_max, y_data = normalise(intensity_data)
     
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
-    x_foot1, y_foot1, x_foot2, y_foot2 = \
+    x_foot1, y_foot1, x_valley, y_valley, x_foot2, y_foot2 = \
             heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess)
     
     figure, axes = plt.subplots()
@@ -165,8 +203,8 @@ def main():
       linestyle='dotted',
     )
     axes.plot(
-      [x_foot1, x_foot2],
-      [y_foot1, y_foot2],
+      [x_foot1, x_foot2, x_valley],
+      [y_foot1, y_foot2, y_valley],
       'rx',
     )
     axes.set(
