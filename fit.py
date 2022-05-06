@@ -225,6 +225,7 @@ def main():
     intensity_min, intensity_max, y_data = normalise(intensity_data)
     
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
+    y_background_guess = background_function(x_data, m_guess, b_guess)
     
     try: # 2 peaks
       
@@ -252,7 +253,7 @@ def main():
     axes.plot(x_data, y_data, label='data')
     axes.plot(
       x_data,
-      background_function(x_data, m_guess, b_guess),
+      y_background_guess,
       label='background guess',
       linestyle='dotted',
     )
