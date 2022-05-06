@@ -121,9 +121,10 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
   
   y_data_foreground = y_data - background_function(x_data, m_guess, b_guess)
   
-  foot_y_threshold = 0.05
   x_climb = collections.deque(x_data)
   y_climb_foreground = collections.deque(y_data_foreground)
+  
+  foot_y_threshold = 0.05
   while y_climb_foreground[0] < foot_y_threshold:
     x_climb.popleft()
     y_climb_foreground.popleft()
