@@ -176,6 +176,7 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
             )
   except TypeError:
     y_valley = None
+  
   return x_foot1, y_foot1, x_valley, y_valley, x_foot2, y_foot2
 
 
