@@ -111,8 +111,8 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
   2-peak case: find (foot1, peak1, valley, peak2, foot2).
   
   1. Finds the two feet.
-  2. Climbs upward from the two feet with height in tandem,
-     checking if the common height hits a valley.
+  2. Climbs upward from the two feet,
+     checking if the secant line hits a valley.
   """
   
   y_data_foreground = y_data - background_function(x_data, m_guess, b_guess)
