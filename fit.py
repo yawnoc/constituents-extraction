@@ -80,6 +80,23 @@ def peak_function(x, h, mu, sigma, tau):
   )
 
 
+def heuristic_background_parameter_guesses(x_data, y_data):
+  """
+  Heuristically obtain guesses for the background function parameters.
+  """
+  
+  window_size = 4
+  x1 = np.mean(x_data[:window_size])
+  y1 = np.mean(y_data[:window_size])
+  x2 = np.mean(x_data[-window_size:])
+  y2 = np.mean(y_data[-window_size:])
+  
+  m_guess = (y2 - y1) / (x2 - x1)
+  b_guess = y1 - m_guess * x1
+  
+  return m_guess, b_guess
+
+
 def main():
   
   data_points_from_file_name = load_data_points()
@@ -90,6 +107,9 @@ def main():
     
     frame_min, frame_max, x_data = normalise(frame_data)
     intensity_min, intensity_max, y_data = normalise(intensity_data)
+    
+    m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
+    print(m_guess, b_guess)
     
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
