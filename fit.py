@@ -282,9 +282,12 @@ def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
 
 
 LOCATION_MARKERS_STYLE = 'rx'
+
 BACKGROUND_CURVE_COLOUR = '#2CA02C'
 PEAK1_CURVE_COLOUR = PEAK_CURVE_COLOUR = '#9467BD'
 PEAK2_CURVE_COLOUR = '#D62728'
+
+BACKGROUND_LINE_STYLE = 'dotted'
 
 
 def main():
@@ -469,7 +472,7 @@ def main():
           f'  b={b_guess:.4}',
         ]
       ),
-      linestyle='dotted',
+      linestyle=BACKGROUND_LINE_STYLE,
     )
     axes.plot(
       peak_valley_x_locations, peak_valley_y_locations,
@@ -488,7 +491,7 @@ def main():
             f'  τ={tau_guess:.4}',
           ]
         ),
-        linestyle='dotted',
+        linestyle=BACKGROUND_LINE_STYLE,
       )
     if y_peak1_fit_guess_with_background is not None:
       axes.plot(
@@ -503,7 +506,7 @@ def main():
             f'  τ1={tau1_guess:.4}',
           ]
         ),
-        linestyle='dotted',
+        linestyle=BACKGROUND_LINE_STYLE,
       )
     if y_peak2_fit_guess_with_background is not None:
       axes.plot(
@@ -518,7 +521,7 @@ def main():
             f'  τ2={tau2_guess:.4}',
           ]
         ),
-        linestyle='dotted',
+        linestyle=BACKGROUND_LINE_STYLE,
       )
     axes.set(
       title=f'{file_name} (guess)',
@@ -545,7 +548,7 @@ def main():
           f'  b={b_fit:.4}',
         ]
       ),
-      linestyle='dotted',
+      linestyle=BACKGROUND_LINE_STYLE,
     )
     if y_peak_fit_with_background is not None:
       axes.plot(
@@ -560,7 +563,7 @@ def main():
             f'  τ={tau_fit:.4}',
           ]
         ),
-        linestyle='dotted',
+        linestyle=BACKGROUND_LINE_STYLE,
       )
     if y_peak1_fit_with_background is not None:
       axes.plot(
@@ -575,7 +578,7 @@ def main():
             f'  τ1={tau1_fit:.4}',
           ]
         ),
-        linestyle='dotted',
+        linestyle=BACKGROUND_LINE_STYLE,
       )
     if y_peak2_fit_with_background is not None:
       axes.plot(
@@ -590,7 +593,7 @@ def main():
             f'  τ2={tau2_fit:.4}',
           ]
         ),
-        linestyle='dotted',
+        linestyle=BACKGROUND_LINE_STYLE,
       )
     axes.set(
       title=f'{file_name} (fit)',
