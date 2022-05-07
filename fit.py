@@ -285,6 +285,26 @@ def main():
               )
       y_peak1_fit_guess_with_background = \
               y_peak1_fit_guess + y_background_fit_guess
+      
+      ################################
+      # Peak 2 guess
+      ################################
+      x_peak2_foot1 = \
+              x_peak2 - (x_peak2 - x_valley) / (y_peak2 - y_valley) * y_peak2
+      x_peak2_foot2 = x_foot2
+      h2_guess, mu2_guess, sigma2_guess, tau2_guess = \
+              heuristic_peak_parameter_guesses(
+                x_peak2_foot1,
+                x_peak2, y_peak2,
+                x_peak2_foot2
+              )
+      y_peak2_fit_guess = \
+              peak_function(
+                x_data,
+                h2_guess, mu2_guess, sigma2_guess, tau2_guess,
+              )
+      y_peak2_fit_guess_with_background = \
+              y_peak2_fit_guess + y_background_fit_guess
     
     except ValueError: # 1 peak
       
@@ -309,7 +329,13 @@ def main():
       
       h1_guess = mu1_guess = sigma1_guess = tau1_guess = None
       y_peak1_fit_guess_with_background = None
+      
+      h2_guess = mu2_guess = sigma2_guess = tau2_guess = None
+      y_peak2_fit_guess_with_background = None
     
+    ################################
+    # Guess plots
+    ################################
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
     axes.plot(
@@ -351,6 +377,21 @@ def main():
             f'  μ1={mu1_guess:.4}',
             f'  σ1={sigma1_guess:.4}',
             f'  τ1={tau1_guess:.4}',
+          ]
+        ),
+        linestyle='dotted',
+      )
+    if y_peak2_fit_guess_with_background is not None:
+      axes.plot(
+        x_data,
+        y_peak2_fit_guess_with_background,
+        label='\n'.join(
+          [
+            'peak guess',
+            f'  h2={h2_guess:.4}',
+            f'  μ2={mu2_guess:.4}',
+            f'  σ2={sigma2_guess:.4}',
+            f'  τ2={tau2_guess:.4}',
           ]
         ),
         linestyle='dotted',
