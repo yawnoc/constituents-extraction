@@ -242,6 +242,9 @@ def main():
     frame_min, frame_max, x_data = normalise(frame_data)
     intensity_min, intensity_max, y_data = normalise(intensity_data)
     
+    ################################
+    # Background guess
+    ################################
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
     y_background_fit_guess = background_function(x_data, m_guess, b_guess)
     
@@ -270,6 +273,9 @@ def main():
       peak_valley_x_locations = [x_foot1, x_peak, x_foot2]
       peak_valley_y_locations = [y_foot1, y_peak, y_foot2]
       
+      ################################
+      # Peak guess
+      ################################
       h_guess, mu_guess, sigma_guess, tau_guess = \
               heuristic_peak_parameter_guesses(
                 x_foot1,
