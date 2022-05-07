@@ -26,8 +26,8 @@ I am not a biologist, so I am just going to call them `peak1` and `peak2`.
    for the fitting parameters.
    ![Plot of 2-peak parameter guesses for Sample 3 data.][guess-plot]
 3. Curves are fitted using `scipy.optimize`.
-4. ![Plot of 2-peak fit for Sample 3 data.][fit-plot]
-5. Results are exported to [`data/`].
+   ![Plot of 2-peak fit for Sample 3 data.][fit-plot]
+4. Results are exported to [`data/`].
 
 - A straight line `y = m x + b` is used to model the background intensity.
 - An [exponentially modified Gaussian] is used to model each peak in intensity.
