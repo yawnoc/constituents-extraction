@@ -21,6 +21,8 @@ I am not a biologist, so I am just going to call them `peak1` and `peak2`.
 
 ## Technical details
 
+### Strategy
+
 1. Data is loaded and normalised to between 0 and 1.
 2. Unsophisticated heuristics are used to make initial guesses
    for the fitting parameters.
@@ -28,6 +30,8 @@ I am not a biologist, so I am just going to call them `peak1` and `peak2`.
 3. Curves are fitted using `scipy.optimize`.
    ![Plot of 2-peak fit for Sample 3 data.][fit-plot]
 4. Results are exported to [`data/`].
+
+### Model
 
 - A straight line `y = m x + b` is used to model the background intensity.
 - An [exponentially modified Gaussian] is used to model each peak in intensity.
