@@ -282,9 +282,9 @@ def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
 
 
 LOCATION_MARKERS_STYLE = 'rx'
-BACKGROUND_CURVE_STYLE = '#2CA02C'
-PEAK1_CURVE_STYLE = PEAK_CURVE_STYLE = '#9467BD'
-PEAK2_CURVE_STYLE = '#D62728'
+BACKGROUND_CURVE_COLOUR = '#2CA02C'
+PEAK1_CURVE_COLOUR = PEAK_CURVE_COLOUR = '#9467BD'
+PEAK2_CURVE_COLOUR = '#D62728'
 
 
 def main():
@@ -461,7 +461,7 @@ def main():
     axes.plot(x_data, y_data, label='data')
     axes.plot(
       x_data, y_background_fit_guess,
-      BACKGROUND_CURVE_STYLE,
+      BACKGROUND_CURVE_COLOUR,
       label='\n'.join(
         [
           'background guess',
@@ -478,7 +478,7 @@ def main():
     if y_peak_fit_guess_with_background is not None:
       axes.plot(
         x_data, y_peak_fit_guess_with_background,
-        PEAK_CURVE_STYLE,
+        PEAK_CURVE_COLOUR,
         label='\n'.join(
           [
             'peak guess',
@@ -493,7 +493,7 @@ def main():
     if y_peak1_fit_guess_with_background is not None:
       axes.plot(
         x_data, y_peak1_fit_guess_with_background,
-        PEAK1_CURVE_STYLE,
+        PEAK1_CURVE_COLOUR,
         label='\n'.join(
           [
             'peak1 guess',
@@ -508,7 +508,7 @@ def main():
     if y_peak2_fit_guess_with_background is not None:
       axes.plot(
         x_data, y_peak2_fit_guess_with_background,
-        PEAK2_CURVE_STYLE,
+        PEAK2_CURVE_COLOUR,
         label='\n'.join(
           [
             'peak2 guess',
@@ -537,7 +537,7 @@ def main():
     axes.plot(x_data, y_fit, label='fit')
     axes.plot(
       x_data, y_background_fit,
-      BACKGROUND_CURVE_STYLE,
+      BACKGROUND_CURVE_COLOUR,
       label='\n'.join(
         [
           'background fit',
@@ -550,7 +550,7 @@ def main():
     if y_peak_fit_with_background is not None:
       axes.plot(
         x_data, y_peak_fit_with_background,
-        PEAK_CURVE_STYLE,
+        PEAK_CURVE_COLOUR,
         label='\n'.join(
           [
             'peak fit',
@@ -565,7 +565,7 @@ def main():
     if y_peak1_fit_with_background is not None:
       axes.plot(
         x_data, y_peak1_fit_with_background,
-        PEAK1_CURVE_STYLE,
+        PEAK1_CURVE_COLOUR,
         label='\n'.join(
           [
             'peak1 fit',
@@ -580,7 +580,7 @@ def main():
     if y_peak2_fit_with_background is not None:
       axes.plot(
         x_data, y_peak2_fit_with_background,
-        PEAK2_CURVE_STYLE,
+        PEAK2_CURVE_COLOUR,
         label='\n'.join(
           [
             'peak2 fit',
