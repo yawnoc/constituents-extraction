@@ -27,9 +27,12 @@ In short, this means you can do whatever you want with it.
   - PNG/PDF plots
   - TSV files containing the parameter values
 
+PDF output is not version-controlled, and can be found in [Releases].
+
 [`fit.py`]: fit.py
 [`data/`]: data/
 [`output/`]: output/
+[Releases]: https://github.com/yawnoc/constituents-extraction/releases
 
 
 ## Technical details
