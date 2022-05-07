@@ -86,6 +86,14 @@ def one_peak_model(x, m, b, h, mu, sigma, tau):
   return background_function(x, m, b) + peak_function(x, h, mu, sigma, tau)
 
 
+def two_peak_model(x, m, b, h1, mu1, sigma1, tau1, h2, mu2, sigma2, tau2):
+  return (
+    background_function(x, m, b)
+      + peak_function(x, h1, mu1, sigma1, tau1)
+      + peak_function(x, h2, mu2, sigma2, tau2)
+  )
+
+
 def heuristic_background_parameter_guesses(x_data, y_data):
   """
   Heuristically make guesses for background function parameters.
@@ -344,6 +352,31 @@ def main():
               )
       y_peak2_fit_guess_with_background = \
               y_peak2_fit_guess + y_background_fit_guess
+      
+      ################################
+      # 2-peak fit
+      ################################
+      (
+        m_fit, b_fit,
+        h1_fit, mu1_fit, sigma1_fit, tau1_fit,
+        h2_fit, mu2_fit, sigma2_fit, tau2_fit,
+      ), _ = \
+              opt.curve_fit(
+                two_peak_model,
+                x_data, y_data,
+                (
+                  m_guess, b_guess,
+                  h1_guess, mu1_guess, sigma1_guess, tau1_guess,
+                  h2_guess, mu2_guess, sigma2_guess, tau2_guess,
+                )
+              )
+      y_fit = \
+              two_peak_model(
+                x_data,
+                m_fit, b_fit,
+                h1_fit, mu1_fit, sigma1_fit, tau1_fit,
+                h2_fit, mu2_fit, sigma2_fit, tau2_fit,
+              )
     
     except ValueError: # 1 peak
       
