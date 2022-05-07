@@ -537,6 +537,34 @@ def main():
         ),
         linestyle='dotted',
       )
+    if y_peak1_fit_with_background is not None:
+      axes.plot(
+        x_data, y_peak1_fit_with_background,
+        label='\n'.join(
+          [
+            'peak1 fit',
+            f'  h1={h1_fit:.4}',
+            f'  μ1={mu1_fit:.4}',
+            f'  σ1={sigma1_fit:.4}',
+            f'  τ1={tau1_fit:.4}',
+          ]
+        ),
+        linestyle='dotted',
+      )
+    if y_peak2_fit_with_background is not None:
+      axes.plot(
+        x_data, y_peak2_fit_with_background,
+        label='\n'.join(
+          [
+            'peak2 fit',
+            f'  h2={h2_fit:.4}',
+            f'  μ2={mu2_fit:.4}',
+            f'  σ2={sigma2_fit:.4}',
+            f'  τ2={tau2_fit:.4}',
+          ]
+        ),
+        linestyle='dotted',
+      )
     axes.set(
       title=file_name,
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
