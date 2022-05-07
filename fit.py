@@ -8,6 +8,7 @@ from frame vs intensity data in `data/`.
 """
 
 
+import csv
 import collections
 import os
 
@@ -572,6 +573,40 @@ def main():
     )
     axes.legend()
     plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.pdf'))
+    
+    csv_file_name = os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.csv')
+    with open(csv_file_name, 'w', encoding='utf-8', newline='') as csv_file:
+      
+      csv_writer = csv.writer(csv_file)
+      
+      csv_writer.writerow(['# Background'])
+      csv_writer.writerow(['m', m_fit])
+      csv_writer.writerow(['b', b_fit])
+      csv_writer.writerow([])
+      
+      if h_fit is not None:
+        csv_writer.writerow(['# Peak'])
+        csv_writer.writerow(['h', h_fit])
+        csv_writer.writerow(['mu', mu_fit])
+        csv_writer.writerow(['sigma', sigma_fit])
+        csv_writer.writerow(['tau', tau_fit])
+        csv_writer.writerow([])
+      
+      if h1_fit is not None:
+        csv_writer.writerow(['# Peak 1'])
+        csv_writer.writerow(['h1', h1_fit])
+        csv_writer.writerow(['mu1', mu1_fit])
+        csv_writer.writerow(['sigma1', sigma1_fit])
+        csv_writer.writerow(['tau1', tau1_fit])
+        csv_writer.writerow([])
+      
+      if h2_fit is not None:
+        csv_writer.writerow(['# Peak 2'])
+        csv_writer.writerow(['h2', h2_fit])
+        csv_writer.writerow(['mu2', mu2_fit])
+        csv_writer.writerow(['sigma2', sigma2_fit])
+        csv_writer.writerow(['tau2', tau2_fit])
+        csv_writer.writerow([])
 
 
 if __name__ == '__main__':
