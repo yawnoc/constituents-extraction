@@ -445,8 +445,7 @@ def main():
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
     axes.plot(
-      x_data,
-      y_background_fit_guess,
+      x_data, y_background_fit_guess,
       label='\n'.join(
         [
           'background guess',
@@ -459,8 +458,7 @@ def main():
     axes.plot(peak_valley_x_locations, peak_valley_y_locations, 'rx')
     if y_peak_fit_guess_with_background is not None:
       axes.plot(
-        x_data,
-        y_peak_fit_guess_with_background,
+        x_data, y_peak_fit_guess_with_background,
         label='\n'.join(
           [
             'peak guess',
@@ -474,8 +472,7 @@ def main():
       )
     if y_peak1_fit_guess_with_background is not None:
       axes.plot(
-        x_data,
-        y_peak1_fit_guess_with_background,
+        x_data, y_peak1_fit_guess_with_background,
         label='\n'.join(
           [
             'peak guess',
@@ -489,8 +486,7 @@ def main():
       )
     if y_peak2_fit_guess_with_background is not None:
       axes.plot(
-        x_data,
-        y_peak2_fit_guess_with_background,
+        x_data, y_peak2_fit_guess_with_background,
         label='\n'.join(
           [
             'peak guess',
@@ -517,8 +513,7 @@ def main():
     axes.plot(x_data, y_data, label='data')
     axes.plot(x_data, y_fit, label='fit')
     axes.plot(
-      x_data,
-      y_background_fit,
+      x_data, y_background_fit,
       label='\n'.join(
         [
           'background fit',
@@ -530,8 +525,7 @@ def main():
     )
     if y_peak_fit_with_background is not None:
       axes.plot(
-        x_data,
-        y_peak_fit_with_background,
+        x_data, y_peak_fit_with_background,
         label='\n'.join(
           [
             'peak fit',
