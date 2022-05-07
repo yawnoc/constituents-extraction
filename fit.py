@@ -13,6 +13,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.optimize as opt
 import scipy.special as sp
 
 
@@ -79,6 +80,10 @@ def peak_function(x, h, mu, sigma, tau):
       * np.exp(1/2 * (sigma/tau)**2 - (x - mu)/tau)
       * sp.erfc(1/np.sqrt(2) * (sigma/tau - (x - mu)/sigma))
   )
+
+
+def one_peak_model(x, m, b, h, mu, sigma, tau):
+  return background_function(x, m, b) + peak_function(x, h, mu, sigma, tau)
 
 
 def heuristic_background_parameter_guesses(x_data, y_data):
@@ -366,6 +371,21 @@ def main():
       
       h2_guess = mu2_guess = sigma2_guess = tau2_guess = None
       y_peak2_fit_guess_with_background = None
+      
+      ################################
+      # 1-peak fit
+      ################################
+      (m_fit, b_fit, h_fit, mu_fit, sigma_fit, tau_fit), _ = \
+              opt.curve_fit(
+                one_peak_model,
+                x_data, y_data,
+              )
+      y_fit = \
+              one_peak_model(
+                x_data,
+                m_fit, b_fit,
+                h_fit, mu_fit, sigma_fit, tau_fit,
+              )
     
     ################################
     # Guess plots
@@ -437,6 +457,20 @@ def main():
     )
     axes.legend()
     plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'guesses-{file_name}.pdf'))
+    
+    ################################
+    # Fit plots
+    ################################
+    figure, axes = plt.subplots()
+    axes.plot(x_data, y_data, label='data')
+    axes.plot(x_data, y_fit, label='fit')
+    axes.set(
+      title=file_name,
+      xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
+      ylabel=f'Normalised intensity [{intensity_min:.3}, {intensity_max:.3}]',
+    )
+    axes.legend()
+    plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.pdf'))
 
 
 if __name__ == '__main__':
