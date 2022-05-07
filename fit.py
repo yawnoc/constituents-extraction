@@ -583,6 +583,12 @@ def main():
       
       tsv_writer = csv.writer(tsv_file, delimiter='\t')
       
+      tsv_writer.writerow(['# Unscaled ranges'])
+      tsv_writer.writerow(['frame_min', int(frame_min)])
+      tsv_writer.writerow(['frame_max', int(frame_max)])
+      tsv_writer.writerow(['intensity_min', intensity_min])
+      tsv_writer.writerow(['intensity_max', intensity_max])
+      
       tsv_writer.writerow(['# Background'])
       tsv_writer.writerow(['m', m_fit])
       tsv_writer.writerow(['b', b_fit])

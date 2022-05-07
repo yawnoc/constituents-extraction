@@ -1,3 +1,8 @@
+# Unscaled ranges
+frame_min	1
+frame_max	686
+intensity_min	0.0549473
+intensity_max	0.0596497
 # Background
 m	0.13492506850988442
 b	0.016611859021479995
