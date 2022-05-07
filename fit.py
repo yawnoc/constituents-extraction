@@ -506,6 +506,7 @@ def main():
     )
     axes.legend()
     plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'guess-{file_name}.pdf'))
+    plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'guess-{file_name}.png'))
     
     ################################
     # Fit plots
@@ -573,6 +574,7 @@ def main():
     )
     axes.legend()
     plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.pdf'))
+    plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.png'))
     
     csv_file_name = os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.csv')
     with open(csv_file_name, 'w', encoding='utf-8', newline='') as csv_file:
