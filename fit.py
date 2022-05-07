@@ -83,7 +83,7 @@ def peak_function(x, h, mu, sigma, tau):
 
 def heuristic_background_parameter_guesses(x_data, y_data):
   """
-  Heuristically make guesses for the background function parameters.
+  Heuristically make guesses for background function parameters.
   
   1. Determines the centre of mass for a cluster at the start of the data
      and a cluster at the end of the data.
@@ -213,6 +213,19 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
     return x_foot1, y_foot1, x_peak, y_peak, x_foot2, y_foot2
 
 
+def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
+  """
+  Heuristically make guesses for peak function parameters.
+  """
+  
+  h_guess = 3 * y_peak
+  mu_guess = x_peak
+  sigma_guess = (x_peak - x_foot1) / 4
+  tau_guess = (x_foot2 - x_peak) / 3
+  
+  return h_guess, mu_guess, sigma_guess, tau_guess
+
+
 def main():
   
   data_points_from_file_name = load_data_points()
@@ -251,10 +264,12 @@ def main():
       peak_valley_x_locations = [x_foot1, x_peak, x_foot2]
       peak_valley_y_locations = [y_foot1, y_peak, y_foot2]
       
-      h_guess = 3 * (y_peak - b_guess)
-      mu_guess = x_peak
-      sigma_guess = (x_peak - x_foot1) / 4
-      tau_guess = (x_foot2 - x_peak) / 3
+      h_guess, mu_guess, sigma_guess, tau_guess = \
+              heuristic_peak_parameter_guesses(
+                x_foot1,
+                x_peak, y_peak,
+                x_foot2,
+              )
       y_peak_guess = \
               peak_function(x_data, h_guess, mu_guess, sigma_guess, tau_guess)
       y_peak_guess_with_background = \
