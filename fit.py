@@ -514,7 +514,7 @@ def main():
         linestyle='dotted',
       )
     axes.set(
-      title=file_name,
+      title=f'{file_name} (guess)',
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
       ylabel=f'Normalised intensity [{intensity_min:.3}, {intensity_max:.3}]',
     )
@@ -582,7 +582,7 @@ def main():
         linestyle='dotted',
       )
     axes.set(
-      title=file_name,
+      title=f'{file_name} (fit)',
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
       ylabel=f'Normalised intensity [{intensity_min:.3}, {intensity_max:.3}]',
     )
