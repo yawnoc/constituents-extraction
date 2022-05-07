@@ -45,7 +45,7 @@ PDF output is not version-controlled, and can be found in [Releases].
    ![Plot of 2-peak parameter guesses for Sample 3 data.][guess-plot]
 3. Curves are fitted using `scipy.optimize`.
    ![Plot of 2-peak fit for Sample 3 data.][fit-plot]
-4. Results are exported to [`data/`].
+4. Results are exported to [`output/`].
 
 ### Model
 
