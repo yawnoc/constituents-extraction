@@ -215,6 +215,34 @@ def heuristic_peak_valley_locations(x_data, y_data, m_guess, b_guess):
     return x_foot1, y_foot1, x_peak, y_peak, x_foot2, y_foot2
 
 
+def heuristic_valley_side_foot_location(x_peak, y_peak, x_valley, y_valley):
+  """
+  Heuristically guess the location of the valley-side foot of a peak.
+  
+  This is the foot location that would be visible
+  if the other peak were removed.
+  
+  1. Straight-line extrapolates to y = 0.
+  2. Makes sure that the foot isn't too far away from the peak.
+  """
+  
+  extrapolated_foot_displacement = \
+          (x_valley - x_peak) / (y_peak - y_valley) * y_peak
+  
+  extrapolated_foot_direction = np.sign(extrapolated_foot_displacement)
+  
+  extrapolated_foot_distance = np.abs(extrapolated_foot_displacement)
+  extrapolated_foot_distance = \
+          min(
+            extrapolated_foot_distance,
+            1.5 * np.abs(x_valley - x_peak),
+          )
+  
+  x_foot = x_peak + extrapolated_foot_direction * extrapolated_foot_distance
+  
+  return x_foot
+
+
 def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
   """
   Heuristically make guesses for peak function parameters.
@@ -271,7 +299,10 @@ def main():
       ################################
       x_peak1_foot1 = x_foot1
       x_peak1_foot2 = \
-              x_peak1 + (x_valley - x_peak1) / (y_peak1 - y_valley) * y_peak1
+              heuristic_valley_side_foot_location(
+                x_peak1, y_peak1,
+                x_valley, y_valley,
+              )
       h1_guess, mu1_guess, sigma1_guess, tau1_guess = \
               heuristic_peak_parameter_guesses(
                 x_peak1_foot1,
@@ -290,7 +321,10 @@ def main():
       # Peak 2 guess
       ################################
       x_peak2_foot1 = \
-              x_peak2 - (x_peak2 - x_valley) / (y_peak2 - y_valley) * y_peak2
+              heuristic_valley_side_foot_location(
+                x_peak2, y_peak2,
+                x_valley, y_valley,
+              )
       x_peak2_foot2 = x_foot2
       h2_guess, mu2_guess, sigma2_guess, tau2_guess = \
               heuristic_peak_parameter_guesses(
