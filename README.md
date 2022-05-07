@@ -62,6 +62,7 @@ In short, this means you can do whatever you want with it.
   - `mu` is Gaussian mean
   - `sigma` is Gaussian standard deviation
   - `tau` is exponential relaxation time.
+
   See Kalambet et al. (2011),
   "Reconstruction of chromatographic peaks using the exponentially modified
   Gaussian function", Journal of Chemometrics, 25(7), 352-356,
