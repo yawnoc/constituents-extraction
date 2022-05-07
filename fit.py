@@ -281,6 +281,9 @@ def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
   return h_guess, mu_guess, sigma_guess, tau_guess
 
 
+LOCATION_MARKERS_STYLE = 'rx'
+
+
 def main():
   
   data_points_from_file_name = load_data_points()
@@ -464,7 +467,10 @@ def main():
       ),
       linestyle='dotted',
     )
-    axes.plot(peak_valley_x_locations, peak_valley_y_locations, 'rx')
+    axes.plot(
+      peak_valley_x_locations, peak_valley_y_locations,
+      LOCATION_MARKERS_STYLE,
+    )
     if y_peak_fit_guess_with_background is not None:
       axes.plot(
         x_data, y_peak_fit_guess_with_background,
