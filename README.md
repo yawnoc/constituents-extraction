@@ -9,6 +9,16 @@ so I am just going to call them `peak1` and `peak2`.
 [@yawnoc]: https://github.com/yawnoc
 
 
+## License
+
+Copyright 2022 Conway
+
+This repository is licensed under 'MIT No Attribution' (MIT-0), see [LICENSE].
+In short, this means you can do whatever you want with it.
+
+[LICENSE]: LICENSE
+
+
 ## Contents
 
 - [`fit.py`]: Python script that does the curve fitting
