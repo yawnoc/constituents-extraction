@@ -377,6 +377,17 @@ def main():
                 h1_fit, mu1_fit, sigma1_fit, tau1_fit,
                 h2_fit, mu2_fit, sigma2_fit, tau2_fit,
               )
+      
+      y_background_fit = background_function(x_data, m_fit, b_fit)
+      y_peak1_fit = \
+              peak_function(x_data, h1_fit, mu1_fit, sigma1_fit, tau1_fit)
+      y_peak1_fit_with_background = y_peak1_fit + y_background_fit
+      y_peak2_fit = \
+              peak_function(x_data, h2_fit, mu2_fit, sigma2_fit, tau2_fit)
+      y_peak2_fit_with_background = y_peak2_fit + y_background_fit
+      
+      h_fit = mu_fit = sigma_fit = tau_fit = None
+      y_peak_fit_with_background = None
     
     except ValueError: # 1 peak
       
@@ -419,6 +430,14 @@ def main():
                 m_fit, b_fit,
                 h_fit, mu_fit, sigma_fit, tau_fit,
               )
+      
+      y_background_fit = background_function(x_data, m_fit, b_fit)
+      y_peak_fit = peak_function(x_data, h_fit, mu_fit, sigma_fit, tau_fit)
+      y_peak_fit_with_background = y_peak_fit + y_background_fit
+      
+      h1_fit = mu1_fit = sigma1_fit = tau1_fit = None
+      h2_fit = mu2_fit = sigma2_fit = tau2_fit = None
+      y_peak1_fit_with_background = y_peak2_fit_with_background = None
     
     ################################
     # Guess plots
@@ -497,6 +516,33 @@ def main():
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
     axes.plot(x_data, y_fit, label='fit')
+    axes.plot(
+      x_data,
+      y_background_fit,
+      label='\n'.join(
+        [
+          'background fit',
+          f'  m={m_fit:.4}',
+          f'  b={b_fit:.4}',
+        ]
+      ),
+      linestyle='dotted',
+    )
+    if y_peak_fit_with_background is not None:
+      axes.plot(
+        x_data,
+        y_peak_fit_with_background,
+        label='\n'.join(
+          [
+            'peak fit',
+            f'  h={h_fit:.4}',
+            f'  μ={mu_fit:.4}',
+            f'  σ={sigma_fit:.4}',
+            f'  τ={tau_fit:.4}',
+          ]
+        ),
+        linestyle='dotted',
+      )
     axes.set(
       title=file_name,
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
