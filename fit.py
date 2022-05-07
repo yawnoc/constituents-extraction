@@ -3,7 +3,7 @@
 """
 # fit.py
 
-Do fitting to extract Monomer and Aggregate constituents
+Do fitting to extract Aggregate and Monomer constituents
 from frame vs intensity data in `data/`.
 """
 
