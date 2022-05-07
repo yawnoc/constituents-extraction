@@ -30,7 +30,7 @@ I am not a biologist, so I am just going to call them `peak1` and `peak2`.
 - A straight line `y = m x + b` is used to model the background intensity.
 - An [exponentially modified Gaussian] is used to model each peak in intensity.
   This is a convolution of the density functions of
-  a normal distribution with an exponential distribution.
+  a normal distribution and an exponential distribution.
   We use the chromatography version (see <<https://doi.org/10.1002/cem.1343>>):
   ````
   f(x) =
