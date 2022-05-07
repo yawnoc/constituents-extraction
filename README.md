@@ -3,7 +3,10 @@
 Curve fitting to extract aggregate and monomer constituents
 from frame vs intensity data for biological samples.
 
-I am not a biologist, so I am just going to call them `peak1` and `peak2`.
+I ([@yawnoc]) am not a biologist,
+so I am just going to call them `peak1` and `peak2`.
+
+[@yawnoc]: https://github.com/yawnoc
 
 
 ## Contents
