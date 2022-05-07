@@ -223,9 +223,9 @@ def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
   which are based purely on intuition.
   """
   
-  h_guess = 2.2 * y_peak * np.sqrt((x_foot2 - x_peak) / (x_peak - x_foot1))
+  h_guess = 1.5 * y_peak * np.sqrt((x_foot2 - x_peak) / (x_peak - x_foot1))
   mu_guess = x_peak - 0.2 * (x_peak - x_foot1)
-  sigma_guess = 0.2 * (x_peak - x_foot1)
+  sigma_guess = 0.4 * (x_peak - x_foot1)
   tau_guess = 0.33 * (x_foot2 - x_peak)
   
   return h_guess, mu_guess, sigma_guess, tau_guess
