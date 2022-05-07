@@ -581,13 +581,13 @@ def main():
       
       csv_writer = csv.writer(csv_file)
       
-      csv_writer.writerow(['# Background'])
+      csv_writer.writerow(['# Background', None])
       csv_writer.writerow(['m', m_fit])
       csv_writer.writerow(['b', b_fit])
       csv_writer.writerow([])
       
       if h_fit is not None:
-        csv_writer.writerow(['# Peak'])
+        csv_writer.writerow(['# Peak', None])
         csv_writer.writerow(['h', h_fit])
         csv_writer.writerow(['mu', mu_fit])
         csv_writer.writerow(['sigma', sigma_fit])
@@ -595,7 +595,7 @@ def main():
         csv_writer.writerow([])
       
       if h1_fit is not None:
-        csv_writer.writerow(['# Peak 1'])
+        csv_writer.writerow(['# Peak 1', None])
         csv_writer.writerow(['h1', h1_fit])
         csv_writer.writerow(['mu1', mu1_fit])
         csv_writer.writerow(['sigma1', sigma1_fit])
@@ -603,7 +603,7 @@ def main():
         csv_writer.writerow([])
       
       if h2_fit is not None:
-        csv_writer.writerow(['# Peak 2'])
+        csv_writer.writerow(['# Peak 2', None])
         csv_writer.writerow(['h2', h2_fit])
         csv_writer.writerow(['mu2', mu2_fit])
         csv_writer.writerow(['sigma2', sigma2_fit])
