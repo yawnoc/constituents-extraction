@@ -8,9 +8,11 @@ I am not a biologist, so I am just going to call them `peak1` and `peak2`.
 
 ## Contents
 
-- [`fit.py`]: Python scipt that does the curve fitting.
-- [`data/`]: frame vs intensity raw data.
-- [`output/`]: results of the curve fitting.
+- [`fit.py`]: Python scipt that does the curve fitting
+- [`data/`]: frame vs intensity raw data
+- [`output/`]: results of the curve fitting
+  - PNG/PDF plots
+  - TSV files containing the parameter values
 
 [`fit.py`]: fit.py
 [`data/`]: data/
