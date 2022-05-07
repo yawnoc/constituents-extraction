@@ -238,7 +238,7 @@ def main():
     intensity_min, intensity_max, y_data = normalise(intensity_data)
     
     m_guess, b_guess = heuristic_background_parameter_guesses(x_data, y_data)
-    y_background_guess = background_function(x_data, m_guess, b_guess)
+    y_background_fit_guess = background_function(x_data, m_guess, b_guess)
     
     try: # 2 peaks
       
@@ -255,7 +255,7 @@ def main():
       peak_valley_y_locations = \
               [y_foot1, y_peak1, y_valley, y_peak2, y_foot2]
       
-      y_peak_guess_with_background = None
+      y_peak_fit_guess_with_background = None
     
     except ValueError: # 1 peak
       
@@ -270,24 +270,24 @@ def main():
                 x_peak, y_peak,
                 x_foot2,
               )
-      y_peak_guess = \
+      y_peak_fit_guess = \
               peak_function(x_data, h_guess, mu_guess, sigma_guess, tau_guess)
-      y_peak_guess_with_background = \
-              y_peak_guess + y_background_guess
+      y_peak_fit_guess_with_background = \
+              y_peak_fit_guess + y_background_fit_guess
     
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
     axes.plot(
       x_data,
-      y_background_guess,
+      y_background_fit_guess,
       label='background guess',
       linestyle='dotted',
     )
     axes.plot(peak_valley_x_locations, peak_valley_y_locations, 'rx')
-    if y_peak_guess_with_background is not None:
+    if y_peak_fit_guess_with_background is not None:
       axes.plot(
         x_data,
-        y_peak_guess_with_background,
+        y_peak_fit_guess_with_background,
         label='peak guess',
         linestyle='dotted',
       )
