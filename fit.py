@@ -264,7 +264,7 @@ def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
   Heuristically make guesses for peak function parameters.
   
   No mathematical theory underlies these guesses,
-  which are based purely on intuition.
+  which are based purely on intuition and experimentation.
   """
   
   h_guess = 1.5 * y_peak * np.sqrt((x_foot2 - x_peak) / (x_peak - x_foot1))
