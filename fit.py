@@ -478,7 +478,7 @@ def main():
         x_data, y_peak1_fit_guess_with_background,
         label='\n'.join(
           [
-            'peak guess',
+            'peak1 guess',
             f'  h1={h1_guess:.4}',
             f'  μ1={mu1_guess:.4}',
             f'  σ1={sigma1_guess:.4}',
@@ -492,7 +492,7 @@ def main():
         x_data, y_peak2_fit_guess_with_background,
         label='\n'.join(
           [
-            'peak guess',
+            'peak2 guess',
             f'  h2={h2_guess:.4}',
             f'  μ2={mu2_guess:.4}',
             f'  σ2={sigma2_guess:.4}',
