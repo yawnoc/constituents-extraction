@@ -588,6 +588,7 @@ def main():
       tsv_writer.writerow(['frame_max', int(frame_max)])
       tsv_writer.writerow(['intensity_min', intensity_min])
       tsv_writer.writerow(['intensity_max', intensity_max])
+      tsv_writer.writerow([])
       
       tsv_writer.writerow(['# Background'])
       tsv_writer.writerow(['m', m_fit])

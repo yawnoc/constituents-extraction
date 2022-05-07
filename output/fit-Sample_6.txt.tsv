@@ -3,6 +3,7 @@ frame_min	1
 frame_max	686
 intensity_min	0.0327754
 intensity_max	0.043739
+
 # Background
 m	-0.014183067866605992
 b	0.02007144494248019
