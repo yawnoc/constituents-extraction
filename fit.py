@@ -283,7 +283,13 @@ def main():
     axes.plot(
       x_data,
       y_background_fit_guess,
-      label='background guess',
+      label='\n'.join(
+        [
+          'background guess',
+          f'  m={m_guess:.4}',
+          f'  b={b_guess:.4}',
+        ]
+      ),
       linestyle='dotted',
     )
     axes.plot(peak_valley_x_locations, peak_valley_y_locations, 'rx')
