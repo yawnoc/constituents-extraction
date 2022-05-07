@@ -496,7 +496,7 @@ def main():
     ################################
     figure, axes = plt.subplots()
     axes.plot(x_data, y_data, label='data')
-    axes.plot(x_data, y_fit, label='fit', linestyle='dashed')
+    axes.plot(x_data, y_fit, label='fit')
     axes.set(
       title=file_name,
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
