@@ -576,39 +576,39 @@ def main():
     plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.pdf'))
     plt.savefig(os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.png'))
     
-    csv_file_name = os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.csv')
-    with open(csv_file_name, 'w', encoding='utf-8', newline='') as csv_file:
+    tsv_file_name = os.path.join(OUTPUT_DIRECTORY, f'fit-{file_name}.tsv')
+    with open(tsv_file_name, 'w', encoding='utf-8', newline='') as tsv_file:
       
-      csv_writer = csv.writer(csv_file)
+      tsv_writer = csv.writer(tsv_file, delimiter='\t')
       
-      csv_writer.writerow(['# Background', None])
-      csv_writer.writerow(['m', m_fit])
-      csv_writer.writerow(['b', b_fit])
-      csv_writer.writerow([])
+      tsv_writer.writerow(['# Background'])
+      tsv_writer.writerow(['m', m_fit])
+      tsv_writer.writerow(['b', b_fit])
+      tsv_writer.writerow([])
       
       if h_fit is not None:
-        csv_writer.writerow(['# Peak', None])
-        csv_writer.writerow(['h', h_fit])
-        csv_writer.writerow(['mu', mu_fit])
-        csv_writer.writerow(['sigma', sigma_fit])
-        csv_writer.writerow(['tau', tau_fit])
-        csv_writer.writerow([])
+        tsv_writer.writerow(['# Peak'])
+        tsv_writer.writerow(['h', h_fit])
+        tsv_writer.writerow(['mu', mu_fit])
+        tsv_writer.writerow(['sigma', sigma_fit])
+        tsv_writer.writerow(['tau', tau_fit])
+        tsv_writer.writerow([])
       
       if h1_fit is not None:
-        csv_writer.writerow(['# Peak 1', None])
-        csv_writer.writerow(['h1', h1_fit])
-        csv_writer.writerow(['mu1', mu1_fit])
-        csv_writer.writerow(['sigma1', sigma1_fit])
-        csv_writer.writerow(['tau1', tau1_fit])
-        csv_writer.writerow([])
+        tsv_writer.writerow(['# Peak 1'])
+        tsv_writer.writerow(['h1', h1_fit])
+        tsv_writer.writerow(['mu1', mu1_fit])
+        tsv_writer.writerow(['sigma1', sigma1_fit])
+        tsv_writer.writerow(['tau1', tau1_fit])
+        tsv_writer.writerow([])
       
       if h2_fit is not None:
-        csv_writer.writerow(['# Peak 2', None])
-        csv_writer.writerow(['h2', h2_fit])
-        csv_writer.writerow(['mu2', mu2_fit])
-        csv_writer.writerow(['sigma2', sigma2_fit])
-        csv_writer.writerow(['tau2', tau2_fit])
-        csv_writer.writerow([])
+        tsv_writer.writerow(['# Peak 2'])
+        tsv_writer.writerow(['h2', h2_fit])
+        tsv_writer.writerow(['mu2', mu2_fit])
+        tsv_writer.writerow(['sigma2', sigma2_fit])
+        tsv_writer.writerow(['tau2', tau2_fit])
+        tsv_writer.writerow([])
 
 
 if __name__ == '__main__':
