@@ -258,6 +258,7 @@ def main():
       peak_valley_y_locations = \
               [y_foot1, y_peak1, y_valley, y_peak2, y_foot2]
       
+      h_guess = mu_guess = sigma_guess = tau_guess = None
       y_peak_fit_guess_with_background = None
     
     except ValueError: # 1 peak
@@ -297,7 +298,15 @@ def main():
       axes.plot(
         x_data,
         y_peak_fit_guess_with_background,
-        label='peak guess',
+        label='\n'.join(
+          [
+            'peak guess',
+            f'  h={h_guess:.4}',
+            f'  μ={mu_guess:.4}',
+            f'  σ={sigma_guess:.4}',
+            f'  τ={tau_guess:.4}',
+          ]
+        ),
         linestyle='dotted',
       )
     axes.set(
