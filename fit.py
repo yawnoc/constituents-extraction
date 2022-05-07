@@ -270,7 +270,12 @@ def main():
     )
     axes.plot(peak_valley_x_locations, peak_valley_y_locations, 'rx')
     if y_peak_guess_with_background is not None:
-      axes.plot(x_data, y_peak_guess_with_background, label='peak guess')
+      axes.plot(
+        x_data,
+        y_peak_guess_with_background,
+        label='peak guess',
+        linestyle='dotted',
+      )
     axes.set(
       title=file_name,
       xlabel=f'Normalised frame number [{int(frame_min)}, {int(frame_max)}]',
