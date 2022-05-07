@@ -3,8 +3,10 @@
 """
 # fit.py
 
-Do fitting to extract Aggregate and Monomer constituents
-from frame vs intensity data in `data/`.
+Do curve fitting to extract Aggregate and Monomer constituents
+from frame vs intensity data for biological samples.
+
+I am not a biologist, so I am just going to call them `peak1` and `peak2`.
 """
 
 
