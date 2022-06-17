@@ -56,7 +56,7 @@ PDF output is not version-controlled, and can be found in [Releases].
   We use the chromatography version:
   ````
   f(x) =
-          h sigma/tau sqrt(pi)/2
+          h sigma/tau sqrt(pi/2)
           . exp[1/2 (sigma/tau)^2 - (x - mu)/tau]
           . erfc[1/sqrt(2) (sigma/tau - (x - mu)/sigma)]
   ````

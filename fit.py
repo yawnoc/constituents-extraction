@@ -75,7 +75,7 @@ def peak_function(x, h, mu, sigma, tau):
   Gaussian function", Journal of Chemometrics, 25(7), 352-356,
   <https://doi.org/10.1002/cem.1343>:
           f(x) =
-                  h sigma/tau sqrt(pi)/2
+                  h sigma/tau sqrt(pi/2)
                   . exp[1/2 (sigma/tau)^2 - (x - mu)/tau]
                   . erfc[1/sqrt(2) (sigma/tau - (x - mu)/sigma)]
   where
@@ -85,7 +85,7 @@ def peak_function(x, h, mu, sigma, tau):
           tau is exponential relaxation time.
   """
   return (
-    h * sigma/tau * np.sqrt(np.pi)/2
+    h * sigma/tau * np.sqrt(np.pi/2)
       * np.exp(1/2 * (sigma/tau)**2 - (x - mu)/tau)
       * sp.erfc(1/np.sqrt(2) * (sigma/tau - (x - mu)/sigma))
   )
@@ -273,7 +273,7 @@ def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
   which are based purely on intuition and experimentation.
   """
   
-  h_guess = 1.5 * y_peak * np.sqrt((x_foot2 - x_peak) / (x_peak - x_foot1))
+  h_guess = y_peak * np.sqrt((x_foot2 - x_peak) / (x_peak - x_foot1))
   mu_guess = x_peak - 0.2 * (x_peak - x_foot1)
   sigma_guess = 0.4 * (x_peak - x_foot1)
   tau_guess = 0.33 * (x_foot2 - x_peak)
