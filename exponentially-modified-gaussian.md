@@ -204,9 +204,15 @@ $$
     \right].
 $$
 
+[Computer algebra confirms that the area is indeed $A$.]
+
+
 [Completing the square of the exponent]:
   https://tio.run/##y00syUjNTSzJTE78/z@1oiA/LzWvxCk1Lb8oVcFWQddQ30hBQ6NCQVchtxRIVAQUZeamairoKxRnpucmasYZwQX1SxJLrblgJjimlaQWAQ0A6werBclD1EON0wSJAFmoShDyCOv0YZZZ/wcK5JUoOCi4lebkBGfmFuRkplVGozvbVgHFGbHW/wE
   "Wolfram Language (Mathematica) – Try It Online"
 [Computer algebra confirms that the convolution form and the exp-erfc form are equivalent.]:
   https://tio.run/##ZZDBisIwFEX3/Yq7bKCl2q0oMwsFd4LLkoFQUg00aU0Tqch8eyevcYYybkLy3snNedHCXaUWTtVimurO3LvWO9WZQ2c1tkgTYI0CqRMeg7pogfPNuqrESXEWmkfj5MUKJ6twAPZjX@XrokSajsihfVjGk1VaspAyB7Cv8q9YhFg@X8zwjKUMqyykNsoo9/h@9T6HweuevAbkOzyjyY5QEgsbInnCNokc@71t6v/@JYEkTIaz4JxBAlHo5ct@lSgkgHFavsCXbByI3p2CvHH4wMG37VnpvlXNo3r70C0Wfnwz/QA
+  "Wolfram Language (Mathematica) – Try It Online"
+[Computer algebra confirms that the area is indeed $A$.]:
+  https://tio.run/##TY9BC4JAEIXv/Yp3VFAsr6LUocBb4FEMBlFbcDfbHUGRfru5WuBleO/N92BGEj8rSSxKmmfSFSGGcwBSxVWjiat8MQAhgBOCqXdXfx26/BSEcIxoJAU2f4Tw4QzLkL1rk2IjdV0uaPbWnIfFrrCn19DdCh6mwYOfqloowaOHv/r81hdjetmxeCkDP8G0lpHg6Nn7rLBkcXCj@a6FYpxx69s2E7JrRT3m25cxqIjmLw
   "Wolfram Language (Mathematica) – Try It Online"
