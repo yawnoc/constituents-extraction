@@ -437,7 +437,7 @@ def main():
               opt.curve_fit(
                 one_peak_model,
                 x_data, y_data,
-                maxfev=3000,
+                (m_guess, b_guess, a_guess, mu_guess, sigma_guess, tau_guess),
               )
       y_fit = \
               one_peak_model(
