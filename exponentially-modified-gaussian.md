@@ -101,6 +101,8 @@ C(x)
 \end{align}
 $$
 
+### Exp-erfc form
+
 [Completing the square of the exponent], we get
 
 $$
@@ -130,12 +132,57 @@ $$
     \right]
     \int_0^\infty
       \exp \left[
-        - \frac{1}{2}
+        -\frac{1}{2}
         \left(
           \frac{\sigma}{\tau} - \frac{x - \mu - x'}{\sigma}
         \right)^2
       \right]
     \thinspace\mathrm{d}x'.
+$$
+
+Next, we apply the change of variables
+$z' = \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu - x'}{\sigma} \right)$:
+
+- Exponent: $-\frac{1}{2} \left( \frac{\sigma}{\tau} - \frac{x - \mu - x'}{\sigma} \right)^2 = -z'^2$.
+- Differential: $\mathrm{d}x' = \sigma\sqrt{2} \thinspace\mathrm{d}z'$.
+- Lower bound: $x' = 0 \iff z' = \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right)$.
+- Upper bound: $x' = \infty \iff z' = \infty$.
+
+Thus we have
+
+$$
+\DeclareMathOperator{\erfc}{erfc}
+\begin{align}
+  C(x)
+  &=
+    \frac{1}{\tau \sigma \sqrt{2 \pi}}
+    \exp \left[
+      \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2
+      - \frac{x - \mu}{\tau}
+    \right]
+    \int_{z' = \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right)}^\infty
+      \exp \left[ -z'^2 \right]
+    \sigma\sqrt{2} \thinspace\mathrm{d}z' \\
+  &=
+    \frac{1}{2 \tau}
+    \exp \left[
+      \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2
+      - \frac{x - \mu}{\tau}
+    \right]
+    \frac{2}{\sqrt{\pi}}
+    \int_{z' = \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right)}^\infty
+      \exp \left[ -z'^2 \right]
+    \thinspace\mathrm{d}z' \\
+  &=
+    \frac{1}{2 \tau}
+    \exp \left[
+      \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2
+      - \frac{x - \mu}{\tau}
+    \right]
+    \erfc \left[
+      \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right)
+    \right].
+\end{align}
 $$
 
 [Completing the square of the exponent]:
