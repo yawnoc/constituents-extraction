@@ -334,7 +334,7 @@ def main():
               heuristic_peak_parameter_guesses(
                 x_peak1_foot1,
                 x_peak1, y_peak1,
-                x_peak1_foot2
+                x_peak1_foot2,
               )
       y_peak1_fit_guess = \
               peak_function(
@@ -357,7 +357,7 @@ def main():
               heuristic_peak_parameter_guesses(
                 x_peak2_foot1,
                 x_peak2, y_peak2,
-                x_peak2_foot2
+                x_peak2_foot2,
               )
       y_peak2_fit_guess = \
               peak_function(
