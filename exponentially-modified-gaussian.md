@@ -38,7 +38,7 @@ Some highlights:
 
 ## Derivation from first principles
 
-The only way to be satisfied is to derive something yourself.
+The only way to be satisfied is to derive it yourself.
 
 ### Definition of exponentially modified Gaussian with unit area
 
@@ -55,4 +55,15 @@ $$
         \frac{x - \mu}{\sigma}
       \right)^2
     \right].
+$$
+
+Let $E(x)$ be the probability density for an exponential distribution
+with time scale $\tau$,
+
+$$
+  E(x) =
+    \begin{cases}
+      \frac{1}{\tau} \exp \left[ -\frac{x}{\tau} \right], & x \ge 0 \\
+      0, & x < 0.
+    \end{cases}
 $$
