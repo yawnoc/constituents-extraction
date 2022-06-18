@@ -34,3 +34,25 @@ Some highlights:
   https://doi.org/10.1021/ac00289a051
 [Kalambet et al. (2011). Reconstruction of chromatographic peaks using the exponentially modified Gaussian function.]:
   https://doi.org/10.1002/cem.1343
+
+
+## Derivation from first principles
+
+The only way to be satisfied is to derive something yourself.
+
+### Definition of exponentially modified Gaussian with unit area
+
+Let $G(x)$ be the probability density for a normal distribution
+with mean $\mu$
+and standard deviation $\sigma$,
+
+$$
+  G(x) =
+    \frac{1}{\sigma \sqrt{2 \pi}}
+    \exp \left[
+      -\frac{1}{2}
+      \left(
+        \frac{x - \mu}{\sigma}
+      \right)^2
+    \right].
+$$
