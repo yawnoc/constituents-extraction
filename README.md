@@ -49,9 +49,9 @@ PDF output is not version-controlled, and can be found in [Releases].
 
 ### Model
 
-A straight line $y = m x + b$ is used to model the background intensity.
+A <b>straight line</b> $y = m x + b$ is used to model the background intensity.
 
-An [exponentially modified Gaussian] is used to model each peak in intensity.
+An <b>exponentially modified Gaussian</b> is used to model each peak in intensity.
 This is a convolution of the density functions of
 a normal distribution and an exponential distribution
 (see derivation in [`exponentially-modified-gaussian.md`]),
@@ -70,8 +70,6 @@ where
 - $\sigma$ is the standard deviation of the normal distribution
 - $\tau$ is time scale of the exponential distribution.
 
-[exponentially modified Gaussian]:
-  https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution
 [`exponentially-modified-gaussian.md`]: exponentially-modified-gaussian.md
 [guess-plot]: output/guess-Sample_3.txt.png
 [fit-plot]: output/fit-Sample_3.txt.png
