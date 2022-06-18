@@ -70,11 +70,6 @@ where
 - $\sigma$ is Gaussian standard deviation
 - $\tau$ is exponential relaxation time.
 
-See Kalambet et al. (2011),
-"Reconstruction of chromatographic peaks using the exponentially modified
-Gaussian function", Journal of Chemometrics, 25(7), 352-356,
-<<https://doi.org/10.1002/cem.1343>>.
-
 [exponentially modified Gaussian]:
   https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution
 [guess-plot]: output/guess-Sample_3.txt.png

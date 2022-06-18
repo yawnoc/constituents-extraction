@@ -70,14 +70,11 @@ def peak_function(x, h, mu, sigma, tau):
   """
   Exponentially modified Gaussian for each peak in the intensity.
   
-  We use the chromatography version, see Kalambet et al. (2011),
-  "Reconstruction of chromatographic peaks using the exponentially modified
-  Gaussian function", Journal of Chemometrics, 25(7), 352-356,
-  <https://doi.org/10.1002/cem.1343>:
+  We use the chromatography version,
           f(x) =
                   h sigma/tau sqrt(pi/2)
                   . exp[1/2 (sigma/tau)^2 - (x - mu)/tau]
-                  . erfc[1/sqrt(2) (sigma/tau - (x - mu)/sigma)]
+                  . erfc[1/sqrt(2) (sigma/tau - (x - mu)/sigma)],
   where
           h is Gaussian amplitude,
           mu is Gaussian mean,
