@@ -49,23 +49,25 @@ PDF output is not version-controlled, and can be found in [Releases].
 
 ### Model
 
-A straight line `y = m x + b` is used to model the background intensity.
+A straight line $y = m x + b$ is used to model the background intensity.
 
 An [exponentially modified Gaussian] is used to model each peak in intensity.
 This is a convolution of the density functions of
 a normal distribution and an exponential distribution.
 We use the chromatography version:
-````
+
+$$
 f(x) =
-        h sigma/tau sqrt(pi/2)
-        . exp[1/2 (sigma/tau)^2 - (x - mu)/tau]
-        . erfc[1/sqrt(2) (sigma/tau - (x - mu)/sigma)]
-````
+        \frac{h \sigma}{\tau} \sqrt{\frac{\pi}{2}}
+        \exp \left[ \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2 - \frac{x - \mu}{\tau} \right]
+        \erfc \left[ \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right) \right]
+$$
+
 where
-- `h` is Gaussian amplitude
-- `mu` is Gaussian mean
-- `sigma` is Gaussian standard deviation
-- `tau` is exponential relaxation time.
+- $h$ is Gaussian amplitude
+- $\mu$ is Gaussian mean
+- $\sigma$ is Gaussian standard deviation
+- $\tau$ is exponential relaxation time.
 
 See Kalambet et al. (2011),
 "Reconstruction of chromatographic peaks using the exponentially modified
