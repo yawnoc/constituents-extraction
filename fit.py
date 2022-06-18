@@ -66,37 +66,36 @@ def background_function(x, m, b):
   return m * x + b
 
 
-def peak_function(x, h, mu, sigma, tau):
+def peak_function(x, a, mu, sigma, tau):
   """
-  Exponentially modified Gaussian for each peak in the intensity.
-  
-  We use the chromatography version,
+  Exponentially modified Gaussian for each peak in the intensity
+  (see `exponentially-modified-gaussian.md` for a derivation):
           f(x) =
-                  h sigma/tau sqrt(pi/2)
+                  A / (2 tau)
                   . exp[1/2 (sigma/tau)^2 - (x - mu)/tau]
                   . erfc[1/sqrt(2) (sigma/tau - (x - mu)/sigma)],
   where
-          h is Gaussian amplitude,
-          mu is Gaussian mean,
-          sigma is Gaussian standard deviation,
-          tau is exponential relaxation time.
+          A is is the area under the curve,
+          mu is the mean of the normal distribution,
+          sigma is the standard deviation of the normal distribution,
+          tau is the time scale of the exponential distribution.
   """
   return (
-    h * sigma/tau * np.sqrt(np.pi/2)
+    a / (2 * tau)
       * np.exp(1/2 * (sigma/tau)**2 - (x - mu)/tau)
       * sp.erfc(1/np.sqrt(2) * (sigma/tau - (x - mu)/sigma))
   )
 
 
-def one_peak_model(x, m, b, h, mu, sigma, tau):
-  return background_function(x, m, b) + peak_function(x, h, mu, sigma, tau)
+def one_peak_model(x, m, b, a, mu, sigma, tau):
+  return background_function(x, m, b) + peak_function(x, a, mu, sigma, tau)
 
 
-def two_peak_model(x, m, b, h1, mu1, sigma1, tau1, h2, mu2, sigma2, tau2):
+def two_peak_model(x, m, b, a1, mu1, sigma1, tau1, a2, mu2, sigma2, tau2):
   return (
     background_function(x, m, b)
-      + peak_function(x, h1, mu1, sigma1, tau1)
-      + peak_function(x, h2, mu2, sigma2, tau2)
+      + peak_function(x, a1, mu1, sigma1, tau1)
+      + peak_function(x, a2, mu2, sigma2, tau2)
   )
 
 
@@ -266,16 +265,16 @@ def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
   """
   Heuristically make guesses for peak function parameters.
   
-  No mathematical theory underlies these guesses,
+  No rigorous mathematical theory underlies these guesses,
   which are based purely on intuition and experimentation.
   """
   
-  h_guess = y_peak * np.sqrt((x_foot2 - x_peak) / (x_peak - x_foot1))
+  a_guess = y_peak * np.sqrt((x_foot2 - x_peak) * (x_peak - x_foot1))
   mu_guess = x_peak - 0.2 * (x_peak - x_foot1)
   sigma_guess = 0.4 * (x_peak - x_foot1)
   tau_guess = 0.33 * (x_foot2 - x_peak)
   
-  return h_guess, mu_guess, sigma_guess, tau_guess
+  return a_guess, mu_guess, sigma_guess, tau_guess
 
 
 LOCATION_MARKERS_STYLE = 'rx'
@@ -319,7 +318,7 @@ def main():
       peak_valley_y_locations = \
               [y_foot1, y_peak1, y_valley, y_peak2, y_foot2]
       
-      h_guess = mu_guess = sigma_guess = tau_guess = None
+      a_guess = mu_guess = sigma_guess = tau_guess = None
       y_peak_fit_guess_with_background = None
       
       ################################
@@ -331,16 +330,16 @@ def main():
                 x_peak1, y_peak1,
                 x_valley, y_valley,
               )
-      h1_guess, mu1_guess, sigma1_guess, tau1_guess = \
+      a1_guess, mu1_guess, sigma1_guess, tau1_guess = \
               heuristic_peak_parameter_guesses(
                 x_peak1_foot1,
                 x_peak1, y_peak1,
-                x_peak1_foot2
+                x_peak1_foot2,
               )
       y_peak1_fit_guess = \
               peak_function(
                 x_data,
-                h1_guess, mu1_guess, sigma1_guess, tau1_guess,
+                a1_guess, mu1_guess, sigma1_guess, tau1_guess,
               )
       y_peak1_fit_guess_with_background = \
               y_peak1_fit_guess + y_background_fit_guess
@@ -354,16 +353,16 @@ def main():
                 x_valley, y_valley,
               )
       x_peak2_foot2 = x_foot2
-      h2_guess, mu2_guess, sigma2_guess, tau2_guess = \
+      a2_guess, mu2_guess, sigma2_guess, tau2_guess = \
               heuristic_peak_parameter_guesses(
                 x_peak2_foot1,
                 x_peak2, y_peak2,
-                x_peak2_foot2
+                x_peak2_foot2,
               )
       y_peak2_fit_guess = \
               peak_function(
                 x_data,
-                h2_guess, mu2_guess, sigma2_guess, tau2_guess,
+                a2_guess, mu2_guess, sigma2_guess, tau2_guess,
               )
       y_peak2_fit_guess_with_background = \
               y_peak2_fit_guess + y_background_fit_guess
@@ -373,35 +372,35 @@ def main():
       ################################
       (
         m_fit, b_fit,
-        h1_fit, mu1_fit, sigma1_fit, tau1_fit,
-        h2_fit, mu2_fit, sigma2_fit, tau2_fit,
+        a1_fit, mu1_fit, sigma1_fit, tau1_fit,
+        a2_fit, mu2_fit, sigma2_fit, tau2_fit,
       ), _ = \
               opt.curve_fit(
                 two_peak_model,
                 x_data, y_data,
                 (
                   m_guess, b_guess,
-                  h1_guess, mu1_guess, sigma1_guess, tau1_guess,
-                  h2_guess, mu2_guess, sigma2_guess, tau2_guess,
+                  a1_guess, mu1_guess, sigma1_guess, tau1_guess,
+                  a2_guess, mu2_guess, sigma2_guess, tau2_guess,
                 )
               )
       y_fit = \
               two_peak_model(
                 x_data,
                 m_fit, b_fit,
-                h1_fit, mu1_fit, sigma1_fit, tau1_fit,
-                h2_fit, mu2_fit, sigma2_fit, tau2_fit,
+                a1_fit, mu1_fit, sigma1_fit, tau1_fit,
+                a2_fit, mu2_fit, sigma2_fit, tau2_fit,
               )
       
       y_background_fit = background_function(x_data, m_fit, b_fit)
       y_peak1_fit = \
-              peak_function(x_data, h1_fit, mu1_fit, sigma1_fit, tau1_fit)
+              peak_function(x_data, a1_fit, mu1_fit, sigma1_fit, tau1_fit)
       y_peak1_fit_with_background = y_peak1_fit + y_background_fit
       y_peak2_fit = \
-              peak_function(x_data, h2_fit, mu2_fit, sigma2_fit, tau2_fit)
+              peak_function(x_data, a2_fit, mu2_fit, sigma2_fit, tau2_fit)
       y_peak2_fit_with_background = y_peak2_fit + y_background_fit
       
-      h_fit = mu_fit = sigma_fit = tau_fit = None
+      a_fit = mu_fit = sigma_fit = tau_fit = None
       y_peak_fit_with_background = None
     
     except ValueError: # 1 peak
@@ -414,44 +413,45 @@ def main():
       ################################
       # Peak guess
       ################################
-      h_guess, mu_guess, sigma_guess, tau_guess = \
+      a_guess, mu_guess, sigma_guess, tau_guess = \
               heuristic_peak_parameter_guesses(
                 x_foot1,
                 x_peak, y_peak,
                 x_foot2,
               )
       y_peak_fit_guess = \
-              peak_function(x_data, h_guess, mu_guess, sigma_guess, tau_guess)
+              peak_function(x_data, a_guess, mu_guess, sigma_guess, tau_guess)
       y_peak_fit_guess_with_background = \
               y_peak_fit_guess + y_background_fit_guess
       
-      h1_guess = mu1_guess = sigma1_guess = tau1_guess = None
+      a1_guess = mu1_guess = sigma1_guess = tau1_guess = None
       y_peak1_fit_guess_with_background = None
       
-      h2_guess = mu2_guess = sigma2_guess = tau2_guess = None
+      a2_guess = mu2_guess = sigma2_guess = tau2_guess = None
       y_peak2_fit_guess_with_background = None
       
       ################################
       # 1-peak fit
       ################################
-      (m_fit, b_fit, h_fit, mu_fit, sigma_fit, tau_fit), _ = \
+      (m_fit, b_fit, a_fit, mu_fit, sigma_fit, tau_fit), _ = \
               opt.curve_fit(
                 one_peak_model,
                 x_data, y_data,
+                (m_guess, b_guess, a_guess, mu_guess, sigma_guess, tau_guess),
               )
       y_fit = \
               one_peak_model(
                 x_data,
                 m_fit, b_fit,
-                h_fit, mu_fit, sigma_fit, tau_fit,
+                a_fit, mu_fit, sigma_fit, tau_fit,
               )
       
       y_background_fit = background_function(x_data, m_fit, b_fit)
-      y_peak_fit = peak_function(x_data, h_fit, mu_fit, sigma_fit, tau_fit)
+      y_peak_fit = peak_function(x_data, a_fit, mu_fit, sigma_fit, tau_fit)
       y_peak_fit_with_background = y_peak_fit + y_background_fit
       
-      h1_fit = mu1_fit = sigma1_fit = tau1_fit = None
-      h2_fit = mu2_fit = sigma2_fit = tau2_fit = None
+      a1_fit = mu1_fit = sigma1_fit = tau1_fit = None
+      a2_fit = mu2_fit = sigma2_fit = tau2_fit = None
       y_peak1_fit_with_background = y_peak2_fit_with_background = None
     
     ################################
@@ -482,7 +482,7 @@ def main():
         label='\n'.join(
           [
             'peak guess',
-            f'  h={h_guess:.4}',
+            f'  A={a_guess:.4}',
             f'  μ={mu_guess:.4}',
             f'  σ={sigma_guess:.4}',
             f'  τ={tau_guess:.4}',
@@ -497,7 +497,7 @@ def main():
         label='\n'.join(
           [
             'peak1 guess',
-            f'  h1={h1_guess:.4}',
+            f'  A1={a1_guess:.4}',
             f'  μ1={mu1_guess:.4}',
             f'  σ1={sigma1_guess:.4}',
             f'  τ1={tau1_guess:.4}',
@@ -512,7 +512,7 @@ def main():
         label='\n'.join(
           [
             'peak2 guess',
-            f'  h2={h2_guess:.4}',
+            f'  A2={a2_guess:.4}',
             f'  μ2={mu2_guess:.4}',
             f'  σ2={sigma2_guess:.4}',
             f'  τ2={tau2_guess:.4}',
@@ -554,7 +554,7 @@ def main():
         label='\n'.join(
           [
             'peak fit',
-            f'  h={h_fit:.4}',
+            f'  A={a_fit:.4}',
             f'  μ={mu_fit:.4}',
             f'  σ={sigma_fit:.4}',
             f'  τ={tau_fit:.4}',
@@ -569,7 +569,7 @@ def main():
         label='\n'.join(
           [
             'peak1 fit',
-            f'  h1={h1_fit:.4}',
+            f'  A1={a1_fit:.4}',
             f'  μ1={mu1_fit:.4}',
             f'  σ1={sigma1_fit:.4}',
             f'  τ1={tau1_fit:.4}',
@@ -584,7 +584,7 @@ def main():
         label='\n'.join(
           [
             'peak2 fit',
-            f'  h2={h2_fit:.4}',
+            f'  A2={a2_fit:.4}',
             f'  μ2={mu2_fit:.4}',
             f'  σ2={sigma2_fit:.4}',
             f'  τ2={tau2_fit:.4}',
@@ -618,25 +618,25 @@ def main():
       tsv_writer.writerow(['b', b_fit])
       tsv_writer.writerow([])
       
-      if h_fit is not None:
+      if a_fit is not None:
         tsv_writer.writerow(['# Peak'])
-        tsv_writer.writerow(['h', h_fit])
+        tsv_writer.writerow(['A', a_fit])
         tsv_writer.writerow(['mu', mu_fit])
         tsv_writer.writerow(['sigma', sigma_fit])
         tsv_writer.writerow(['tau', tau_fit])
         tsv_writer.writerow([])
       
-      if h1_fit is not None:
+      if a1_fit is not None:
         tsv_writer.writerow(['# Peak 1'])
-        tsv_writer.writerow(['h1', h1_fit])
+        tsv_writer.writerow(['A1', a1_fit])
         tsv_writer.writerow(['mu1', mu1_fit])
         tsv_writer.writerow(['sigma1', sigma1_fit])
         tsv_writer.writerow(['tau1', tau1_fit])
         tsv_writer.writerow([])
       
-      if h2_fit is not None:
+      if a2_fit is not None:
         tsv_writer.writerow(['# Peak 2'])
-        tsv_writer.writerow(['h2', h2_fit])
+        tsv_writer.writerow(['A2', a2_fit])
         tsv_writer.writerow(['mu2', mu2_fit])
         tsv_writer.writerow(['sigma2', sigma2_fit])
         tsv_writer.writerow(['tau2', tau2_fit])
