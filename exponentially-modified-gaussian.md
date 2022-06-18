@@ -185,6 +185,8 @@ $$
 \end{align}
 $$
 
+[Computer algebra confirms that the convolution form and the exp-erfc form are equivalent.]
+
 ### Area $A$
 
 The above $C(x)$ has unit area.
@@ -204,4 +206,7 @@ $$
 
 [Completing the square of the exponent]:
   https://tio.run/##y00syUjNTSzJTE78/z@1oiA/LzWvxCk1Lb8oVcFWQddQ30hBQ6NCQVchtxRIVAQUZeamairoKxRnpucmasYZwQX1SxJLrblgJjimlaQWAQ0A6werBclD1EON0wSJAFmoShDyCOv0YZZZ/wcK5JUoOCi4lebkBGfmFuRkplVGozvbVgHFGbHW/wE
+  "Wolfram Language (Mathematica) – Try It Online"
+[Computer algebra confirms that the convolution form and the exp-erfc form are equivalent.]:
+  https://tio.run/##ZZDBisIwFEX3/Yq7bKCl2q0oMwsFd4LLkoFQUg00aU0Tqch8eyevcYYybkLy3snNedHCXaUWTtVimurO3LvWO9WZQ2c1tkgTYI0CqRMeg7pogfPNuqrESXEWmkfj5MUKJ6twAPZjX@XrokSajsihfVjGk1VaspAyB7Cv8q9YhFg@X8zwjKUMqyykNsoo9/h@9T6HweuevAbkOzyjyY5QEgsbInnCNokc@71t6v/@JYEkTIaz4JxBAlHo5ct@lSgkgHFavsCXbByI3p2CvHH4wMG37VnpvlXNo3r70C0Wfnwz/QA
   "Wolfram Language (Mathematica) – Try It Online"
