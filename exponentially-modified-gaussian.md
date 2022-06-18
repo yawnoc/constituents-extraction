@@ -36,7 +36,7 @@ Some highlights:
   https://doi.org/10.1002/cem.1343
 
 
-## Derivation from first principles
+## Conway's derivation from first principles
 
 The only way to be satisfied is to derive it yourself.
 
@@ -183,6 +183,23 @@ $$
       \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right)
     \right].
 \end{align}
+$$
+
+### Area $A$
+
+The above $C(x)$ has unit area.
+To obtain a curve with area $A$, we simply multiply by $A$ to obtain
+
+$$
+  f(x) =
+    \frac{A}{2 \tau}
+    \exp \left[
+      \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2
+      - \frac{x - \mu}{\tau}
+    \right]
+    \erfc \left[
+      \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right)
+    \right].
 $$
 
 [Completing the square of the exponent]:
