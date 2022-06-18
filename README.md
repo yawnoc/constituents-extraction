@@ -57,6 +57,7 @@ a normal distribution and an exponential distribution.
 We use the chromatography version:
 
 $$
+\DeclareMathOperator{\erfc}{erfc}
 f(x) =
         \frac{h \sigma}{\tau} \sqrt{\frac{\pi}{2}}
         \exp \left[ \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2 - \frac{x - \mu}{\tau} \right]
