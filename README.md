@@ -41,9 +41,9 @@ PDF output is not version-controlled, and can be found in [Releases].
 
 1. Data is loaded and normalised to between 0 and 1.
 2. Unsophisticated heuristics are used to make initial guesses
-   for the fitting parameters.
+   for the fitting parameters. <br>
    ![Plot of 2-peak parameter guesses for Sample 3 data.][guess-plot]
-3. Curves are fitted using `scipy.optimize`.
+3. Curves are fitted using `scipy.optimize`. <br>
    ![Plot of 2-peak fit for Sample 3 data.][fit-plot]
 4. Results are exported to [`output/`].
 
