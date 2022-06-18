@@ -49,27 +49,28 @@ PDF output is not version-controlled, and can be found in [Releases].
 
 ### Model
 
-- A straight line `y = m x + b` is used to model the background intensity.
-- An [exponentially modified Gaussian] is used to model each peak in intensity.
-  This is a convolution of the density functions of
-  a normal distribution and an exponential distribution.
-  We use the chromatography version:
-  ````
-  f(x) =
-          h sigma/tau sqrt(pi/2)
-          . exp[1/2 (sigma/tau)^2 - (x - mu)/tau]
-          . erfc[1/sqrt(2) (sigma/tau - (x - mu)/sigma)]
-  ````
-  where
-  - `h` is Gaussian amplitude
-  - `mu` is Gaussian mean
-  - `sigma` is Gaussian standard deviation
-  - `tau` is exponential relaxation time.
+A straight line `y = m x + b` is used to model the background intensity.
 
-  See Kalambet et al. (2011),
-  "Reconstruction of chromatographic peaks using the exponentially modified
-  Gaussian function", Journal of Chemometrics, 25(7), 352-356,
-  <<https://doi.org/10.1002/cem.1343>>.
+An [exponentially modified Gaussian] is used to model each peak in intensity.
+This is a convolution of the density functions of
+a normal distribution and an exponential distribution.
+We use the chromatography version:
+````
+f(x) =
+        h sigma/tau sqrt(pi/2)
+        . exp[1/2 (sigma/tau)^2 - (x - mu)/tau]
+        . erfc[1/sqrt(2) (sigma/tau - (x - mu)/sigma)]
+````
+where
+- `h` is Gaussian amplitude
+- `mu` is Gaussian mean
+- `sigma` is Gaussian standard deviation
+- `tau` is exponential relaxation time.
+
+See Kalambet et al. (2011),
+"Reconstruction of chromatographic peaks using the exponentially modified
+Gaussian function", Journal of Chemometrics, 25(7), 352-356,
+<<https://doi.org/10.1002/cem.1343>>.
 
 [exponentially modified Gaussian]:
   https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution
