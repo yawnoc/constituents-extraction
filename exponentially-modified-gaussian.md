@@ -67,3 +67,36 @@ $$
       0, & x < 0.
     \end{cases}
 $$
+
+Then the <i>exponentially modified Gaussian with unit area</i>
+is defined as their convolution, i.e.
+
+$$
+\begin{align}
+C(x)
+  &= \int_{-\infty}^\infty G(x - x') E(x') \thinspace\mathrm{d}x' \\
+  &=
+    \int_0^\infty
+      \frac{1}{\sigma \sqrt{2 \pi}}
+      \exp \left[
+        -\frac{1}{2}
+        \left(
+          \frac{x - x' - \mu}{\sigma}
+        \right)^2
+      \right]
+      \frac{1}{\tau} \exp \left[ -\frac{x'}{\tau} \right]
+    \thinspace\mathrm{d}x' \\
+  &=
+    \frac{1}{\tau \sigma \sqrt{2 \pi}}
+    \int_0^\infty
+      \exp \left[
+        -\frac{1}{2}
+        \left(
+          \frac{x - \mu - x'}{\sigma}
+        \right)^2
+          -
+        \frac{x'}{\tau}
+      \right]
+    \thinspace\mathrm{d}x'
+\end{align}
+$$
