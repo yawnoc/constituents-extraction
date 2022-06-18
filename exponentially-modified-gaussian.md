@@ -100,3 +100,44 @@ C(x)
     \thinspace\mathrm{d}x'
 \end{align}
 $$
+
+[Completing the square of the exponent], we get
+
+$$
+  -\frac{1}{2}
+  \left(
+    \frac{x - \mu - x'}{\sigma}
+  \right)^2
+    -
+  \frac{x'}{\tau}
+    =
+  \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2
+    - \frac{x - \mu}{\tau}
+    - \frac{1}{2}
+      \left(
+        \frac{\sigma}{\tau} - \frac{x - \mu - x'}{\sigma}
+      \right)^2.
+$$
+
+Therefore
+
+$$
+  C(x) =
+    \frac{1}{\tau \sigma \sqrt{2 \pi}}
+    \exp \left[
+      \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2
+      - \frac{x - \mu}{\tau}
+    \right]
+    \int_0^\infty
+      \exp \left[
+        - \frac{1}{2}
+        \left(
+          \frac{\sigma}{\tau} - \frac{x - \mu - x'}{\sigma}
+        \right)^2
+      \right]
+    \thinspace\mathrm{d}x'.
+$$
+
+[Completing the square of the exponent]:
+  https://tio.run/##y00syUjNTSzJTE78/z@1oiA/LzWvxCk1Lb8oVcFWQddQ30hBQ6NCQVchtxRIVAQUZeamairoKxRnpucmasYZwQX1SxJLrblgJjimlaQWAQ0A6werBclD1EON0wSJAFmoShDyCOv0YZZZ/wcK5JUoOCi4lebkBGfmFuRkplVGozvbVgHFGbHW/wE
+  "Wolfram Language (Mathematica) – Try It Online"
