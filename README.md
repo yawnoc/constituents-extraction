@@ -53,24 +53,25 @@ A straight line $y = m x + b$ is used to model the background intensity.
 
 An [exponentially modified Gaussian] is used to model each peak in intensity.
 This is a convolution of the density functions of
-a normal distribution and an exponential distribution.
-We use the chromatography version:
+a normal distribution and an exponential distribution
+(see derivation in [`exponentially-modified-gaussian.md`]),
 
 $$
 \DeclareMathOperator{\erfc}{erfc}
-f(x) =
-        \frac{h \sigma}{\tau} \sqrt{\frac{\pi}{2}}
-        \exp \left[ \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2 - \frac{x - \mu}{\tau} \right]
-        \erfc \left[ \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right) \right]
+y =
+  \frac{A}{2 \tau}
+  \exp \left[ \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2 - \frac{x - \mu}{\tau} \right]
+  \erfc \left[ \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right) \right]
 $$
 
 where
-- $h$ is Gaussian amplitude
-- $\mu$ is Gaussian mean
-- $\sigma$ is Gaussian standard deviation
-- $\tau$ is exponential relaxation time.
+- $A$ is the area under the curve
+- $\mu$ is the mean of the normal distribution
+- $\sigma$ is the standard deviation of the normal distribution
+- $\tau$ is time scale of the exponential distribution.
 
 [exponentially modified Gaussian]:
   https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution
+[`exponentially-modified-gaussian.md`]: exponentially-modified-gaussian.md
 [guess-plot]: output/guess-Sample_3.txt.png
 [fit-plot]: output/fit-Sample_3.txt.png
