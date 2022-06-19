@@ -630,37 +630,80 @@ def main():
       tsv_writer.writerow(['intensity_max', intensity_max])
       tsv_writer.writerow([])
       
-      tsv_writer.writerow(['# Background', 'Estimate', 'Standard Error'])
-      tsv_writer.writerow(['m', m_fit, m_fit_error])
-      tsv_writer.writerow(['b', b_fit, b_fit_error])
+      tsv_writer.writerow(
+        [
+          '# Background parameter',
+          'Estimate',
+          'Standard error',
+          'Relative standard error',
+        ]
+      )
+      tsv_writer.writerow(['m', m_fit, m_fit_error, m_fit_error/m_fit])
+      tsv_writer.writerow(['b', b_fit, b_fit_error, b_fit_error/b_fit])
       tsv_writer.writerow([])
       
       if a_fit is not None:
-        tsv_writer.writerow(['# Peak', 'Estimate', 'Standard Error'])
-        tsv_writer.writerow(['A', a_fit, a_fit_error])
-        tsv_writer.writerow(['mu', mu_fit, mu_fit_error])
-        tsv_writer.writerow(['sigma', sigma_fit, sigma_fit_error])
-        tsv_writer.writerow(['tau', tau_fit, tau_fit_error])
+        tsv_writer.writerow(
+          [
+            '# Peak parameter',
+            'Estimate',
+            'Standard error',
+            'Relative standard error',
+          ]
+        )
+        tsv_writer.writerow(['A', a_fit, a_fit_error, a_fit_error/a_fit])
+        tsv_writer.writerow(['mu', mu_fit, mu_fit_error, mu_fit_error/mu_fit])
+        tsv_writer.writerow(
+          ['sigma', sigma_fit, sigma_fit_error, sigma_fit_error/sigma_fit]
+        )
+        tsv_writer.writerow(
+          ['tau', tau_fit, tau_fit_error, tau_fit_error/tau_fit]
+        )
         tsv_writer.writerow([])
       
       if a1_fit is not None:
-        tsv_writer.writerow(['# Peak 1'])
-        tsv_writer.writerow(['A1', a1_fit, a1_fit_error])
-        tsv_writer.writerow(['mu1', mu1_fit, mu1_fit_error])
-        tsv_writer.writerow(['sigma1', sigma1_fit, sigma1_fit_error])
-        tsv_writer.writerow(['tau1', tau1_fit, tau1_fit_error])
+        tsv_writer.writerow(
+          [
+            '# Peak 1 parameter',
+            'Estimate',
+            'Standard error',
+            'Relative standard error',
+          ]
+        )
+        tsv_writer.writerow(['A1', a1_fit, a1_fit_error, a1_fit_error/a1_fit])
+        tsv_writer.writerow(
+          ['mu1', mu1_fit, mu1_fit_error, mu1_fit_error/mu1_fit]
+        )
+        tsv_writer.writerow(
+          ['sigma1', sigma1_fit, sigma1_fit_error, sigma1_fit_error/sigma1_fit]
+        )
+        tsv_writer.writerow(
+          ['tau1', tau1_fit, tau1_fit_error, tau1_fit_error/tau1_fit]
+        )
         tsv_writer.writerow([])
       
       if a2_fit is not None:
-        tsv_writer.writerow(['# Peak 2', 'Estimate', 'Standard Error'])
-        tsv_writer.writerow(['A2', a2_fit, a2_fit_error])
-        tsv_writer.writerow(['mu2', mu2_fit, mu2_fit_error])
-        tsv_writer.writerow(['sigma2', sigma2_fit, sigma2_fit_error])
-        tsv_writer.writerow(['tau2', tau2_fit, tau2_fit_error])
+        tsv_writer.writerow(
+          [
+            '# Peak 2 parameter',
+            'Estimate',
+            'Standard Error',
+          ]
+        )
+        tsv_writer.writerow(['A2', a2_fit, a2_fit_error, a2_fit_error/a2_fit])
+        tsv_writer.writerow(
+          ['mu2', mu2_fit, mu2_fit_error, mu2_fit_error/mu2_fit]
+        )
+        tsv_writer.writerow(
+          ['sigma2', sigma2_fit, sigma2_fit_error, sigma2_fit_error/sigma2_fit]
+        )
+        tsv_writer.writerow(
+          ['tau2', tau2_fit, tau2_fit_error, tau2_fit_error/tau2_fit]
+        )
         tsv_writer.writerow([])
       
       if a1_fit is not None and a2_fit is not None:
-        tsv_writer.writerow(['# Area fractions'])
+        tsv_writer.writerow(['# Area fraction'])
         tsv_writer.writerow(['A1/(A1+A2)', a1_fit / (a1_fit + a2_fit)])
         tsv_writer.writerow(['A2/(A1+A2)', a2_fit / (a1_fit + a2_fit)])
         tsv_writer.writerow([])
