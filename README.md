@@ -61,10 +61,16 @@ $$
 y =
   \frac{A}{2 \tau}
   \exp \left[ \frac{1}{2} \left( \frac{\sigma}{\tau} \right)^2 - \frac{x - \mu}{\tau} \right]
-  \erfc \left[ \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right) \right]
+  \erfc \left[ \frac{1}{\sqrt{2}} \left( \frac{\sigma}{\tau} - \frac{x - \mu}{\sigma} \right) \right],
 $$
 
 where
+
+$$
+  \erfc z = \frac{2}{\sqrt{\pi}} \int_{z'=z}^\infty \exp (-z'^2) \thinspace\mathrm{d}z',
+$$
+
+and
 - $A$ is the area under the curve
 - $\mu$ is the mean of the normal distribution
 - $\sigma$ is the standard deviation of the normal distribution
