@@ -703,7 +703,7 @@ def main():
         tsv_writer.writerow([])
       
       if a1_fit is not None and a2_fit is not None:
-        tsv_writer.writerow(['# Area fraction'])
+        tsv_writer.writerow(['# Area fraction', 'Estimate'])
         tsv_writer.writerow(['A1/(A1+A2)', a1_fit / (a1_fit + a2_fit)])
         tsv_writer.writerow(['A2/(A1+A2)', a2_fit / (a1_fit + a2_fit)])
         tsv_writer.writerow([])
