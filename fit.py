@@ -725,6 +725,7 @@ def main():
             '# Area fraction',
             'Estimate',
             'Standard error (approximate)',
+            'Relative standard error (approximate)',
           ]
         )
         a1_fraction = a1_fit / (a1_fit + a2_fit)
@@ -739,6 +740,7 @@ def main():
             'A1/(A1+A2)',
             a1_fraction,
             a1_fraction_error,
+            a1_fraction_error/a1_fraction,
           ]
         )
         tsv_writer.writerow(
@@ -746,6 +748,7 @@ def main():
             'A2/(A1+A2)',
             a2_fraction,
             a2_fraction_error,
+            a2_fraction_error/a2_fraction,
           ]
         )
         tsv_writer.writerow([])
