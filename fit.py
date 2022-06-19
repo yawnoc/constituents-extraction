@@ -641,6 +641,12 @@ def main():
         tsv_writer.writerow(['sigma2', sigma2_fit])
         tsv_writer.writerow(['tau2', tau2_fit])
         tsv_writer.writerow([])
+      
+      if a1_fit is not None and a2_fit is not None:
+        tsv_writer.writerow(['# Area fractions'])
+        tsv_writer.writerow(['A1/(A1+A2)', a1_fit / (a1_fit + a2_fit)])
+        tsv_writer.writerow(['A2/(A1+A2)', a2_fit / (a1_fit + a2_fit)])
+        tsv_writer.writerow([])
 
 
 if __name__ == '__main__':
