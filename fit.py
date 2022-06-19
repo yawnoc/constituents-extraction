@@ -277,6 +277,23 @@ def heuristic_peak_parameter_guesses(x_foot1, x_peak, y_peak, x_foot2):
   return a_guess, mu_guess, sigma_guess, tau_guess
 
 
+def approximate_fraction_error(a1_fit, a2_fit, a1_fit_error, a2_fit_error):
+  """
+  Approximate the standard error for A1/(A1+A2) and A2/(A1+A2).
+  
+  Applying the physicist's propagation of errors for f1 = A1/(A1+A2):
+          s[f1]^2 ≃ (∂f1/∂A1)^2 s[A1]^2 + (∂f1/∂A2)^2 s[A2]^2
+                  = (A2^2 s[A1]^2 + A1^2 s[A2]^2) / (A1 + A2)^4
+          s[f1] = sqrt(A2^2 s[A1]^2 + A1^2 s[A2]^2) / (A1 + A2)^2.
+  The result is the same for the complement f2 = A2/(A1+A2).
+  """
+  return (
+    np.sqrt(a2_fit**2 * a1_fit_error**2 + a1_fit**2 * a2_fit_error**2)
+      /
+    (a1_fit + a2_fit)**2
+  )
+
+
 LOCATION_MARKERS_STYLE = 'rx'
 
 BACKGROUND_CURVE_COLOUR = '#2CA02C'
@@ -703,9 +720,32 @@ def main():
         tsv_writer.writerow([])
       
       if a1_fit is not None and a2_fit is not None:
-        tsv_writer.writerow(['# Area fraction', 'Estimate'])
-        tsv_writer.writerow(['A1/(A1+A2)', a1_fit / (a1_fit + a2_fit)])
-        tsv_writer.writerow(['A2/(A1+A2)', a2_fit / (a1_fit + a2_fit)])
+        tsv_writer.writerow(
+          [
+            '# Area fraction',
+            'Estimate',
+            'Standard error (approximate)',
+          ]
+        )
+        a1_fraction_error = a2_fraction_error = \
+                approximate_fraction_error(
+                  a1_fit, a2_fit,
+                  a1_fit_error, a2_fit_error,
+                )
+        tsv_writer.writerow(
+          [
+            'A1/(A1+A2)',
+            a1_fit / (a1_fit + a2_fit),
+            a1_fraction_error,
+          ]
+        )
+        tsv_writer.writerow(
+          [
+            'A2/(A1+A2)',
+            a2_fit / (a1_fit + a2_fit),
+            a2_fraction_error,
+          ]
+        )
         tsv_writer.writerow([])
 
 
